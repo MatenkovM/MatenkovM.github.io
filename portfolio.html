@@ -1,0 +1,1659 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Портфолио</title>
+
+    <style>
+        * {
+          box-sizing: border-box;
+          margin: 0;
+          padding: 0;
+        }
+
+        body {
+          background:
+          linear-gradient(#551111, #323232),
+        linear-gradient(to right, #000000, #00ff0000, #000000), transparent;
+      background-blend-mode: multiply;
+          color: #fff;
+          font-family: Georgia, serif;
+          /* leave room at bottom for the fixed table */
+          padding-bottom: 220px;
+        }
+      
+      
+      
+      .global-category-section {
+  display: none;
+  opacity: 0;
+  transition: opacity 0.4s ease-in-out;
+}
+
+/* Класс активной категории делает её видимой */
+.global-category-section.active {
+  display: block;
+  opacity: 1;
+}
+
+/* Стили для кнопок переключения (акцентируют внимание) */
+.global-carousel-nav {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 30px;
+}
+.global-tab-btn {
+  padding: 10px 20px;
+  background: #222;
+  color: #fff;
+  border: 1px solid #444;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.global-tab-btn.active, .global-tab-btn:hover {
+  background: #ff5722; /* Цвет вашего акцента */
+  border-color: #ff5722;
+}
+      
+      
+      
+      
+      
+      
+
+        /* ─── Resume section ─────────────────────────────────── */
+        .resume-section {
+          max-width: 1100px;
+          margin: 0 auto;
+          padding: 60px 24px 80px;
+          border-bottom: 2px solid rgba(255,255,255,0.15);
+        }
+
+        .resume-title {
+          font-size: clamp(2rem, 5vw, 3.5rem);
+          font-weight: bold;
+          text-align: center;
+          letter-spacing: 0.04em;
+          margin-bottom: 48px;
+          text-shadow: 0 2px 8px rgba(0,0,0,0.4);
+        }
+
+        .resume-body {
+          display: flex;
+          gap: 36px;
+          align-items: flex-start;
+        }
+
+        /* ─── Carousel ───────────────────────────────────────── */
+        .carousel-block {
+          flex: 0 0 46%;
+        }
+
+        .carousel {
+          position: relative;
+          overflow: hidden;
+          border-radius: 8px;
+          background: rgba(0,0,0,0.);
+          aspect-ratio: 4/3;
+          user-select: none;
+        }
+
+        .carousel-slides {
+          display: flex;
+          height: 100%;
+          transition: transform 0.5s ease;
+        }
+
+        .carousel-slide {
+          flex: 0 0 100%;
+          height: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 1.1rem;
+          color: rgba(255,255,255,0.7);
+          background: rgba(0,0,0,0);
+          /* replace with <img> tags or background-image as needed */
+        }
+
+        .carousel-slide img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          display: block;
+        }
+
+        .carousel-btn {
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+          background: rgba(0,0,0,0.45);
+          border: none;
+          color: #fff;
+          font-size: 1.6rem;
+          cursor: pointer;
+          padding: 8px 14px;
+          border-radius: 4px;
+          transition: background 0.2s;
+          z-index: 2;
+        }
+        .carousel-btn:hover { background: rgba(0,0,0,0.7); }
+        .carousel-btn.prev { left: 8px; }
+        .carousel-btn.next { right: 8px; }
+
+        .carousel-dots {
+          display: flex;
+          justify-content: center;
+          gap: 8px;
+          margin-top: 12px;
+        }
+        .resume-section{
+
+        }
+        .dot {
+          width: 10px;
+          height: 10px;
+          border-radius: 50%;
+          background: rgba(255,255,255,0.35);
+          cursor: pointer;
+          transition: background 0.2s;
+        }
+        .dot.active { background: #fff; }
+
+        /* ─── Text block ─────────────────────────────────────── */
+        .text-block {
+          flex: 1;
+          line-height: 1.75;
+          font-size: 1.05rem;
+        }
+
+        .text-block h3 {
+          font-size: 1.4rem;
+          margin-bottom: 14px;
+          border-bottom: 1px solid rgba(255,255,255,0.3);
+          padding-bottom: 8px;
+        }
+
+        .text-block p {
+          margin-bottom: 12px;
+          color: rgba(255,255,255,0.9);
+        }
+
+        .text-block ul {
+          padding-left: 20px;
+          margin-bottom: 12px;
+          color: rgba(255,255,255,0.85);
+        }
+
+        .text-block ul li {
+          margin-bottom: 6px;
+        }
+
+        /* ─── Fixed footer table ─────────────────────────────── */
+        .footer-table-wrap {
+          position: fixed;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          background: rgba(60,5,0,0.97);
+          border-top: 3px solid rgba(255,255,255,0.2);
+          z-index: 100;
+          padding: 12px 24px;
+          overflow-x: auto;
+        }
+
+        .footer-table-wrap table {
+          width: 100%;
+          max-width: 900px;
+          margin: 0 auto;
+          border-collapse: collapse;
+          font-size: 0.88rem;
+        }
+
+      /* Общий контейнер-подложка на весь экран */
+.image-lightbox-backdrop {
+  display: none; 
+  position: fixed; 
+  z-index: 99999; /* Максимальный приоритет поверх всех элементов */
+  padding-top: 40px; 
+  left: 0;
+  top: 0;
+  width: 100%; 
+  height: 100%; 
+  overflow: hidden; 
+  background-color: #000000de; /* Глубокий темный фон */
+  box-sizing: border-box;
+  border-radius: 5%;
+}
+
+/* Увеличенное изображение внутри окна */
+.image-lightbox-content-image {
+  margin: auto;
+  display: block;
+  width: auto;
+  max-width: 85%;
+  height: auto;
+  max-height: 80vh; /* Ограничение по высоте экрана */
+  object-fit: contain;
+ /* box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); */
+  background-color: #ffffff88;
+  animation: imageLightboxFadeZoom 0.25s ease-out;
+  border-radius: 5%;
+}
+
+/* Анимация плавного масштабирования при открытии */
+@keyframes imageLightboxFadeZoom {
+  from { transform: scale(0.95); opacity: 0; } 
+  to { transform: scale(1); opacity: 1; }
+}
+
+/* Кнопка закрытия (крестик) */
+.image-lightbox-close-button {
+  position: absolute;
+  top: 20px;
+  right: 35px;
+  color: #ffffff;
+  font-size: 45px;
+  font-family: Arial, sans-serif;
+  font-weight: 300;
+  line-height: 1;
+  transition: color 0.2s ease;
+  cursor: pointer;
+  user-select: none;
+}
+
+.image-lightbox-close-button:hover {
+  color: #d1d1d1;
+}
+      
+/* Текстовая подпись под увеличенным изображением */
+.image-lightbox-caption-area {
+  margin: auto;
+  display: block;
+  width: 85%;
+  max-width: 800px;
+  text-align: center;
+  color: #e0e0e0;
+  font-family: inherit;
+  font-size: 16px;
+  padding: 15px 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+      /* Стили для самих триггерных картинок (необязательно, для удобства пользователя) */
+.image-lightbox-trigger {
+  cursor: zoom-in;
+  transition: opacity 0.2s ease;
+}
+
+.image-lightbox-trigger:hover {
+  opacity: 0.9;
+}
+
+/* Адаптивный дизайн для экранов смартфонов */
+@media only screen and (max-width: 768px) {
+  .image-lightbox-backdrop {
+    padding-top: 60px;
+  }
+  .image-lightbox-content-image {
+    max-width: 95%;
+    max-height: 70vh;
+  }
+  .image-lightbox-close-button {
+    top: 10px;
+    right: 20px;
+    font-size: 40px;
+  }
+}
+      
+        .footer-table-wrap th,
+        .footer-table-wrap td {
+          border: 1px solid rgba(255,255,255,0.2);
+          border-bottom: none; border-top: none;
+          padding: 8px 14px;
+          text-align: center;
+          white-space: nowrap;
+        }
+
+        .footer-table-wrap th {
+         // background: rgba(255,255,255,0.1);
+          font-weight: bold;
+          letter-spacing: 0.03em;
+        }
+
+        .footer-table-wrap tr:nth-child(even) td {
+        //  background: rgba(255,255,255,0.05);
+        }
+
+        /* ─── Responsive ─────────────────────────────────────── */
+        @media (max-width: 680px) {
+          .resume-body { flex-direction: column; }
+          .carousel-block { flex: none; width: 100%; }
+        }
+/*360 сцена*/
+
+.viewer-360-layout {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 20px;
+}
+.player-container-360 {
+  width: 100%;
+  height: 500px; /* Высота интерактивного окна на десктопе */
+  background: #111;
+  border: 1px solid #333;
+  border-radius: 4px;
+  overflow: hidden;
+}
+      
+      .player-container-360 canvas.a-canvas {
+  position: absolute !important;
+  z-index: 1 !important;
+  width: 100% !important;
+  height: 100% !important;
+}
+      
+      #loadingIndicator, #controls {
+  z-index: 10 !important;
+}
+      
+      .player-container-360#container {
+  width: 100%;
+  height: 500px; /* Фиксированная высота для интерактивного 3D окна */
+  position: relative;
+  background: #000;
+  border: 1px solid #333;
+  border-radius: 4px;
+  overflow: hidden;
+}
+      
+.thumbs-360-gallery {
+  display: flex;
+  gap: 15px;
+  margin-top: 20px;
+  justify-content: center;
+}
+.thumb-360 {
+  width: 80px;
+  height: 80px;
+  border: 2px solid #444;
+  cursor: pointer;
+  opacity: 0.6;
+  transition: all 0.3s ease;
+}
+.thumb-360.active, .thumb-360:hover {
+  border-color: #ff5722;
+  opacity: 1;
+}
+.thumb-360 img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+#dropArea {
+  display: none !important; /* Намертво скрываем стартовое окно выбора файлов */
+  /* остальные стили макета не трогаем */
+}
+      
+.player-container-360#container {
+  width: 100%;
+  height: 500px; /* Высота 3D-окна на десктопе */
+  position: relative;
+  background: #000;
+  border: 1px solid #333;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* Намертво убираем стартовую плашку выбора файлов, так как панорама стартует сама */
+#dropArea {
+  display: none !important;
+}
+
+/* Фикс для индикатора загрузки в ограниченном окне */
+#loadingIndicator {
+  background: rgba(0,0,0,0.6) !important;
+  backdrop-filter: blur(3px);
+}
+
+    </style>
+  </head>
+  <body>
+    
+    <div class="global-portfolio-container">
+      <section class="resume-section" style="position: relative;">
+   <table style="border: 0px; background: linear-gradient(to right, #00ff0000, #aaaaaa55, #00ff0000); width: 100%; position: relative; z-index: 1;">
+    <tr>
+      <td style="width: 75%; border-right-color: red">
+        <h1 class="resume-title">Technical Artist / 3D Generalist.</h1>
+        <h2 class="resume-title">Матенков Михаил</h2>
+      </td>
+      <td><img style="width: 70%" src="photo.png" alt="Описание картинки" /></td>
+    </tr>
+  </table>
+      </section>
+    </div> 
+    <!-- ══════════════════════════════════════
+       РЕЗЮМЕ 1
+  ══════════════════════════════════════ -->
+    
+    <div class="global-carousel-nav">
+  <button class="global-tab-btn active" onclick="switchGlobalCategory('characters')">Персонажи</button>
+  <button class="global-tab-btn" onclick="switchGlobalCategory('blender-360')">360° Blender рендеры</button>
+  <button class="global-tab-btn" onclick="switchGlobalCategory('unity-360')">360° Unity локации</button>
+  <button class="global-tab-btn" onclick="switchGlobalCategory('props')">Пропсы</button>
+  <button class="global-tab-btn" onclick="switchGlobalCategory('architecture')">Архитектура</button>
+</div>
+
+<!-- Главный контейнер для всех категорий портфолио -->
+<div class="global-portfolio-container">
+
+  <!-- КАТЕГОРИЯ 1: Персонажи (Здесь живут ваши секции с Canvas-видео) -->
+  <div id="cat-characters" class="global-category-section active">
+    
+    
+    <section class="resume-section" style="position: relative;">
+  
+       <video class="main-video-src" src="video/sd_al_d.mp4" autoplay loop muted playsinline style="display: none"></video>
+  <video class="mask-video-src" src="video/sd_al_mask.mp4" autoplay loop muted playsinline style="display: none"></video>
+
+  <!-- CANVAS ТЕПЕРЬ ТУТ: Работает как фон для ВСЕЙ секции resume-section -->
+   <canvas class="output-canvas-render" width="420" height="420" style="position: absolute; top: 66%; left: 80%; transform: translate(-50%, -50%); z-index: 0; pointer-events: none; opacity: 0.35; width: 35%; height: auto; object-fit: contain;"></canvas>
+
+
+  <!-- Шапка портфолио -->
+      
+
+      
+  <!-- Заголовок работ -->
+  <div style="position: relative; z-index: 1;">
+    <h3 style="text-align: center; padding-bottom: 4%">Примеры персонажей:</h3>
+  </div>
+
+  <!-- Контентная часть (вернули к исходному состоянию без лишних z-index внутри) -->
+  <div class="resume-body" style="position: relative; z-index: 1;">
+    <div class="resume-body" style="position: relative; z-index: 1;">
+    <!-- Блок карусели -->
+    <div class="carousel-block" style="background: radial-gradient(#77222288, #32323200, #32323200);">
+      <div class="carousel" id="carousel-1">
+        <div class="carousel-slides" id="slides-1">
+          <div class="carousel-slide image-lightbox-trigger"><img style="width: 70%" src="\images\al_sd\0001.png" alt="" /></div>
+          <div class="carousel-slide image-lightbox-trigger"><img style="width: 70%" src="\images\al_sd\0002.png" alt="" /></div>
+          <div class="carousel-slide image-lightbox-trigger"><img style="width: 70%" src="\images\al_sd\0003.png" alt="" /></div>
+          <div class="carousel-slide image-lightbox-trigger"><img style="width: 70%" src="\images\al_sd\0004.png" alt="" /></div>
+          <div class="carousel-slide image-lightbox-trigger"><img style="width: 70%" src="\images\al_sd\0005.png" alt="" /></div>
+        </div>
+        <button class="carousel-btn prev" onclick="moveCarousel('1',-1)">‹</button>
+        <button class="carousel-btn next" onclick="moveCarousel('1', 1)">›</button>
+      </div>
+    </div>
+
+    <!-- Блок текста -->
+    <div class="text-block">
+      <h3>Гуманоидный персонаж</h3>
+      <p>Текстуры сгенерированны в stabble deffusion</p>
+      <ul>
+        <li>Blender</li>
+        <li>Substance painter</li>
+        <li>Кастомный скелет</li>
+        <li>50к полигонов</li>
+        <li>1 материал</li>
+        <li>создание персонажа/анимации 30 часов</li>
+      </ul>
+    </div>
+
+  </div>
+    </div>
+</section>
+
+    <!-- ══════════════════════════════════════
+       РЕЗЮМЕ 2
+  ══════════════════════════════════════ -->
+    <section class="resume-section" style="position: relative;">
+    <video class="main-video-src" src="video/al_an.mp4" autoplay loop muted playsinline style="display: none"></video>
+  <video class="mask-video-src" src="video/al_an_mask.mp4" autoplay loop muted playsinline style="display: none"></video>
+<canvas class="output-canvas-render" width="420" height="420" style="position: absolute; top: 62%; left: 80%; transform: translate(-50%, -50%); z-index: 0; pointer-events: none; opacity: 0.35; width: 35%; height: auto; object-fit: contain;"></canvas>
+
+  <div class="resume-body" style="position: relative; z-index: 1;">
+      <div class="resume-body">
+        <div class="carousel-block" style="background: radial-gradient(#77222288, #32323200, #32323200)">
+          <div class="carousel" id="carousel-2">
+            <div class="carousel-slides" id="slides-2">
+              <div class="carousel-slide image-lightbox-trigger"><img style="width: 70%" src="\images\al_an\0001.png" alt="" /></div>
+              <div class="carousel-slide image-lightbox-trigger"><img style="width: 70%" src="\images\al_an\0002.png" alt="" /></div>
+              <div class="carousel-slide image-lightbox-trigger"><img style="width: 70%" src="\images\al_an\0003.png" alt="" /></div>
+              <div class="carousel-slide image-lightbox-trigger"><img style="width: 70%" src="\images\al_an\0004.png" alt="" /></div>
+            </div>
+            <button class="carousel-btn prev" onclick="moveCarousel('2',-1)">&#8249;</button>
+            <button class="carousel-btn next" onclick="moveCarousel('2', 1)">&#8250;</button>
+          </div>
+        </div>
+
+        <div class="text-block">
+          <h3>Животное</h3>
+          <p>Текстуры сгенерированны в кастомном workflow comfyUI.</p>
+          <ul>
+            <li>Blender</li>
+            <li>Substance painter</li>
+            <li>Кастомный скелет</li>
+            <li>70к полигонов</li>
+            <li>1 материал</li>
+            <li>создание персонажа/анимации 16 часов</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    </section>
+
+    <!-- ══════════════════════════════════════
+       РЕЗЮМЕ 3
+  ══════════════════════════════════════ -->
+    <section class="resume-section" style="position: relative; z-index: 1;">
+      <video class="main-video-src" src="video/al_ins.mp4" autoplay loop muted playsinline style="display: none"></video>
+  <video class="mask-video-src" src="video/al_ins_mask.mp4" autoplay loop muted playsinline style="display: none"></video>
+<canvas class="output-canvas-render" width="420" height="420" style="position: absolute; top: 62%; left: 80%; transform: translate(-50%, -50%); z-index: 0; pointer-events: none; opacity: 0.35; width: 35%; height: auto; object-fit: contain;"></canvas>
+      
+      <div class="resume-body">
+        <div class="carousel-block" style="background: radial-gradient(#77222288, #32323200, #32323200)">
+          <div class="carousel" id="carousel-3">
+            <div class="carousel-slides" id="slides-3">
+              <div class="carousel-slide image-lightbox-trigger"><img style="width: 70%" src="\images\al_insect\0001.png" alt="" /></div>
+              <div class="carousel-slide image-lightbox-trigger"><img style="width: 70%" src="\images\al_insect\0002.png" alt="" /></div>
+              <div class="carousel-slide image-lightbox-trigger"><img style="width: 70%" src="\images\al_insect\0003.png" alt="" /></div>
+              <div class="carousel-slide image-lightbox-trigger"><img style="width: 70%" src="\images\al_insect\0004.png" alt="" /></div>
+            </div>
+            <button class="carousel-btn prev" onclick="moveCarousel('3',-1)">&#8249;</button>
+            <button class="carousel-btn next" onclick="moveCarousel('3', 1)">&#8250;</button>
+          </div>
+        </div>
+
+        <div class="text-block">
+          <h3>Насекомое</h3>
+          <p>Текстуры: Substance painter.</p>
+          <ul>
+            <li>Blender</li>
+            <li>Substance painter</li>
+            <li>Кастомный скелет</li>
+            <li>300к полигонов</li>
+            <li>1 материал</li>
+            <li>создание персонажа/анимации 20 часов</li>
+          </ul>
+          <p>Создавался для анимации.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════
+       РЕЗЮМЕ 4
+  ══════════════════════════════════════ -->
+    <section class="resume-section trigger-at-bottom" style="position: relative; z-index: 1;">
+  <!-- Убрали autoplay, оставили только muted и playsinline -->
+  <video class="main-video-src" src="video/rat_start.mp4" data-loop-src="video/rat_cicle.mp4" muted playsinline style="display: none"></video>
+  <video class="mask-video-src" src="video/rat_start_mask.mp4" data-loop-mask-src="video/rat_cicle_mask.mp4" muted playsinline style="display: none"></video>
+  <canvas class="output-canvas-render" width="720" height="720" style="position: absolute; top: 62%; left: 93%; transform: translate(-50%, -50%); z-index: 0; pointer-events: none; opacity: 0.35; width: 60%; height: auto; object-fit: contain;"></canvas>
+
+
+      
+      <div class="resume-body">
+        <div class="carousel-block">
+          <div class="carousel" id="carousel-4">
+            <div class="carousel-slides" id="slides-4">
+              <div class="carousel-slide image-lightbox-trigger"><img style="width: 70%" src="\images\al_stile\0001.png" alt="" /></div>
+              <div class="carousel-slide image-lightbox-trigger"><img style="width: 70%" src="\images\al_stile\0002.png" alt="" /></div>
+              <div class="carousel-slide image-lightbox-trigger"><img style="width: 70%" src="\images\al_stile\0003.png" alt="" /></div>
+              <div class="carousel-slide image-lightbox-trigger"><img style="width: 70%" src="\images\al_stile\0004.png" alt="" /></div>
+            </div>
+            <button class="carousel-btn prev" onclick="moveCarousel('4',-1)">&#8249;</button>
+            <button class="carousel-btn next" onclick="moveCarousel('4', 1)">&#8250;</button>
+          </div>
+        </div>
+
+        <div class="text-block">
+          <h3>Стилизованный персонаж</h3>
+          <p>Текстуры: авто-генерация.</p>
+          <ul>
+            <li>Blender</li>
+            <li>Кастомный скелет</li>
+            <li>22к полигонов</li>
+            <li>1 материал</li>
+            <li>создание персонажа/анимации 5 часов</li>
+          </ul>
+          <p>Создавался для анимации в blender.</p>
+        </div>
+      </div>
+    </section>
+
+    
+    </div>
+
+  <!-- КАТЕГОРИЯ 2: 360° Blender рендеры -->
+  <div id="cat-blender-360" class="global-category-section">
+     <section class="resume-section trigger-at-bottom" style="position: relative; z-index: 1;">
+       
+       </section>
+    <section class="resume-section trigger-at-bottom" style="position: relative; z-index: 1;">
+       
+       </section>
+    <section class="resume-section trigger-at-bottom" style="position: relative; z-index: 1;">
+       
+       </section>
+    <section class="resume-section trigger-at-bottom" style="position: relative; z-index: 1;">
+       
+       </section>
+  </div>
+
+  <!-- КАТЕГОРИЯ 3: 360° Unity локации -->
+  <div id="cat-unity-360" class="global-category-section">
+  <div class="viewer-360-layout">
+    
+    <!-- Контейнер плеера из оригинала, ограниченный по высоте -->
+    <div id="container" class="player-container-360">
+      <div id="aframeContainer"></div>
+      
+      <!-- Индикатор загрузки (колесико) -->
+      <div id="loadingIndicator">
+        <div class="spinner"></div>
+      </div>
+    </div>
+
+    <!-- Информационный блок с описанием -->
+    <div class="player-360-info" style="margin-top: 20px; text-align: center;">
+      <h3 id="unity-360-title" style="font-size: 1.4rem; margin-bottom: 8px; border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 8px;">Интерактивная локация: Музейная сцена</h3>
+      <p id="unity-360-desc" style="color: rgba(255,255,255,0.85);">Baked lightmaps, custom shaders, 450k polys total.</p>
+    </div>
+
+    <!-- Галерея превью-карточек -->
+    <div class="thumbs-360-gallery">
+      <!-- Вызываем единый глобальный мост-обработчик -->
+      <div class="thumb-360 active" onclick="window.globalLoad360('images/360/museum.jpg', 'Музейная сцена', 'Baked lightmaps, custom shaders, 450k polys total.', this)">
+        <img src="images/360/museum_thumb.jpg" alt="Музей" />
+      </div>
+      <div class="thumb-360" onclick="window.globalLoad360('images/360/school.jpg', 'Школьный класс', 'Оптимизировано под мобильный WebGL, 150k polys.', this)">
+        <img src="images/360/school_thumb.jpg" alt="Школа" />
+      </div>
+    </div>
+
+  </div>
+</div>
+
+  <!-- КАТЕГОРИЯ 4: Пропсы -->
+  <div id="cat-props" class="global-category-section">
+     <section class="resume-section trigger-at-bottom" style="position: relative; z-index: 1;">
+       
+       </section>
+    <section class="resume-section trigger-at-bottom" style="position: relative; z-index: 1;">
+       
+       </section>
+    <section class="resume-section trigger-at-bottom" style="position: relative; z-index: 1;">
+       
+       </section>
+    <section class="resume-section trigger-at-bottom" style="position: relative; z-index: 1;">
+       
+       </section>
+  </div>
+
+  <!-- КАТЕГОРИЯ 5: Архитектура -->
+  <div id="cat-architecture" class="global-category-section">
+     <section class="resume-section trigger-at-bottom" style="position: relative; z-index: 1;">
+       
+       </section>
+    <section class="resume-section trigger-at-bottom" style="position: relative; z-index: 1;">
+       
+       </section>
+    <section class="resume-section trigger-at-bottom" style="position: relative; z-index: 1;">
+       
+       </section>
+    <section class="resume-section trigger-at-bottom" style="position: relative; z-index: 1;">
+       
+       </section>
+  </div>
+
+</div>
+    
+    
+    <!-- ══════════════════════════════════════
+       ФИКСИРОВАННАЯ ТАБЛИЦА (3 × 4)
+       3 столбца, 4 строки (1 заголовок + 3 данных)
+  ══════════════════════════════════════ -->
+    <div class="footer-table-wrap" style="background: linear-gradient(to bottom, #441111, #111111)">
+      <table>
+        <thead>
+          <tr>
+            <th>Имя</th>
+            <th>Должность</th>
+            <th>Контакт</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Иванов Иван</td>
+            <td>Старший разработчик</td>
+            <td>ivan@example.com</td>
+          </tr>
+          <tr>
+            <td>Петрова Мария</td>
+            <td>UX/UI Дизайнер</td>
+            <td>maria@example.com</td>
+          </tr>
+          <tr>
+            <td>Сидоров Алексей</td>
+            <td>DevOps инженер</td>
+            <td>alexey@example.com</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div id="image-lightbox-modal-root" class="image-lightbox-backdrop">
+  <span class="image-lightbox-close-button">&times;</span>
+      <img id="image-lightbox-target-view" class="image-lightbox-content-image" src="images/al_an/0001.png" alt="">
+  <div id="image-lightbox-text-caption" class="image-lightbox-caption-area"></div>
+</div>
+    
+    <!-- ══════════════════════════════════════
+       CAROUSEL LOGIC (pure JS, no libraries)
+  ══════════════════════════════════════ -->
+    <script>
+      // 1. Создаем ОДИН общий невидимый буфер в памяти для всех видео на странице
+const sharedBuffer = document.createElement('canvas');
+const sCtx = sharedBuffer.getContext('2d', { willReadFrequently: true });
+
+function initAlphaVideo(container) {
+  const vMain = container.querySelector('.main-video-src');
+  const vMask = container.querySelector('.mask-video-src');
+  const canvas = container.querySelector('.output-canvas-render');
+
+  if (!vMain || !vMask || !canvas) return;
+
+  const ctx = canvas.getContext('2d'); // Для финального вывода canplay и willReadFrequently не нужны
+  let isChangingSource = false;
+  let isVisible = false; // Флаг видимости секции на экране
+
+  
+  let lastSyncTime = 0; // Переменная для контроля частоты проверок
+  function render() {
+  if (!isVisible || isChangingSource || vMain.paused || vMain.ended) {
+    return;
+  }
+
+  const now = performance.now();
+  
+  // МЯГКАЯ СИНХРОНИЗАЦИЯ СКОРОСТИ: проверяем разницу раз в 300 миллисекунд
+  if (now - lastSpeedSyncTime > 300) {
+    const timeDiff = vMain.currentTime - vMask.currentTime;
+
+    // Проверяем, если рассинхрон превышает 20 миллисекунд (меньше 1 кадра)
+    if (Math.abs(timeDiff) > 0.02) {
+      if (timeDiff < 0) {
+        // Если маска убежала вперед (ваша ситуация), слегка замедляем её, пока цветное её не догонит
+        vMask.playbackRate = 0.94;
+      } else {
+        // Если маска вдруг отстала, немного подгоняем её вперед
+        vMask.playbackRate = 1.06;
+      }
+    } else {
+      // Если видео идут синхронно, возвращаем маске нормальную скорость 100%
+      if (vMask.playbackRate !== 1.0) {
+        vMask.playbackRate = 1.0;
+      }
+    }
+    lastSpeedSyncTime = now;
+  }
+
+  const w = canvas.width;
+  const h = canvas.height;
+
+  // Ниже идет ваш стандартный оптимизированный код отрисовки пикселей...
+  if (sharedBuffer.width !== w || sharedBuffer.height !== h) {
+    sharedBuffer.width = w;
+    sharedBuffer.height = h;
+  }
+
+  try {
+    sCtx.drawImage(vMain, 0, 0, w, h);
+    const mainImg = sCtx.getImageData(0, 0, w, h);
+    
+    sCtx.drawImage(vMask, 0, 0, w, h);
+    const maskImg = sCtx.getImageData(0, 0, w, h);
+
+    const mainData32 = new Uint32Array(mainImg.data.buffer);
+    const maskData32 = new Uint32Array(maskImg.data.buffer);
+    const len = mainData32.length;
+
+    for (let i = 0; i < len; i++) {
+      const alpha = maskData32[i] & 0xFF; 
+      mainData32[i] = (mainData32[i] & 0x00FFFFFF) | (alpha << 24);
+    }
+
+    ctx.putImageData(mainImg, 0, 0);
+  } catch (err) {
+    console.error("Ошибка CORS или отрисовки.", err);
+    return;
+  }
+
+  requestAnimationFrame(render);
+}
+
+  function startPlayback() {
+  // Сбрасываем видео строго в ноль ТОЛЬКО ОДИН РАЗ на самом старте
+  vMain.currentTime = 0;
+  vMask.currentTime = 0;
+  
+  // Возвращаем дефолтную скорость перед запуском
+  vMain.playbackRate = 1.0;
+  vMask.playbackRate = 1.0;
+
+  Promise.all([
+    vMain.play(),
+    vMask.play()
+  ])
+  .then(() => {
+    lastSpeedSyncTime = performance.now();
+    requestAnimationFrame(render);
+  })
+  .catch((err) => console.log("Автозапуск заблокирован:", err));
+}
+
+  function stopPlayback() {
+    vMain.pause();
+    vMask.pause();
+  }
+
+  // Логика интро -> цикл
+  vMain.addEventListener('ended', () => {
+    const nextSrc = vMain.getAttribute('data-loop-src');
+    const nextMaskSrc = vMask.getAttribute('data-loop-mask-src');
+
+    if (nextSrc && nextMaskSrc) {
+      isChangingSource = true;
+      vMain.removeAttribute('data-loop-src');
+      vMask.removeAttribute('data-loop-mask-src');
+
+      vMain.src = nextSrc;
+      vMask.src = nextMaskSrc;
+      vMain.loop = true;
+      vMask.loop = true;
+
+      let switchReady = 0;
+      const onSwitchReady = () => {
+        switchReady++;
+        if (switchReady === 2) {
+          vMain.removeEventListener('canplay', onSwitchReady);
+          vMask.removeEventListener('canplay', onSwitchReady);
+          isChangingSource = false;
+          if (isVisible) startPlayback();
+        }
+      };
+      vMain.addEventListener('canplay', onSwitchReady);
+      vMask.addEventListener('canplay', onSwitchReady);
+      vMain.load();
+      vMask.load();
+    }
+  });
+
+  // Синхронизация управления
+  vMain.addEventListener('play', () => { if (!isChangingSource && isVisible) vMask.play().catch(() => {}); });
+  vMain.addEventListener('pause', () => vMask.pause());
+  vMain.addEventListener('seeking', () => vMask.currentTime = vMain.currentTime);
+
+  // Контроль прокрутки до низа для последней секции
+  let scrollTriggered = !container.classList.contains('trigger-at-bottom');
+
+  function checkScrollAndPlay() {
+    if (!scrollTriggered) {
+      const isAtBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 50;
+      if (isAtBottom) {
+        scrollTriggered = true;
+        window.removeEventListener('scroll', checkScrollAndPlay);
+        if (isVisible) startPlayback();
+      }
+    } else if (isVisible) {
+      startPlayback();
+    }
+  }
+
+  if (!scrollTriggered) {
+    window.addEventListener('scroll', checkScrollAndPlay);
+  }
+
+  // Наблюдатель: если секция видна хотя бы на 1% — включаем её, если скрылась — тушим
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        isVisible = true;
+        checkScrollAndPlay();
+      } else {
+        isVisible = false;
+        stopPlayback();
+      }
+    });
+  }, { root: null, threshold: 0.01 });
+
+  observer.observe(container);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.resume-section').forEach(section => initAlphaVideo(section));
+});
+    </script>
+    <script>
+      // State: current slide index per carousel id
+var state = {};
+// Флаг для защиты от спам-кликов во время анимации
+var isTransitioning = {};
+
+function initCarousel(id) {
+  var slides = document.getElementById("slides-" + id);
+  if (!slides) return;
+
+  var originalCount = slides.children.length;
+  if (originalCount <= 1) return; // Если слайд один, бесконечность не нужна
+
+  state[id] = 1; // Начинаем с 1, так как на индексе 0 будет стоять клон
+  isTransitioning[id] = false;
+
+  // 1. Клонируем элементы для бесшовного эффекта
+  var firstClone = slides.children[0].cloneNode(true);
+  var lastClone = slides.children[originalCount - 1].cloneNode(true);
+
+  slides.appendChild(firstClone); // Клон первого слайда в конец
+  slides.insertBefore(lastClone, slides.children[0]); // Клон последнего слайда в начало
+
+  // Устанавливаем стартовую позицию на настоящий первый слайд
+  slides.style.transition = "none";
+  slides.style.transform = "translateX(-100%)";
+
+  // 2. Строим точки-индикаторы
+  var dotsWrap = document.getElementById("dots-" + id);
+  if (dotsWrap && dotsWrap.children.length === 0) { // Проверка, чтобы не дублировать точки при повторном вызове
+    for (var i = 0; i < originalCount; i++) {
+      var dot = document.createElement("span");
+      dot.className = "dot" + (i === 0 ? " active" : "");
+      dot.setAttribute("data-idx", i);
+      dot.onclick = (function (idx) {
+        return function () {
+          goTo(id, idx + 1);
+        };
+      })(i);
+      dotsWrap.appendChild(dot);
+    }
+  }
+
+  // 3. Главная магия: невидимый сброс после завершения анимации
+  slides.addEventListener("transitionend", function () {
+    var currentCount = slides.children.length;
+
+    if (state[id] >= currentCount - 1) {
+      slides.style.transition = "none";
+      state[id] = 1;
+      slides.style.transform = "translateX(-100%)";
+    }
+    else if (state[id] <= 0) {
+      slides.style.transition = "none";
+      state[id] = currentCount - 2;
+      slides.style.transform = "translateX(-" + state[id] * 100 + "%)";
+    }
+
+    isTransitioning[id] = false;
+  });
+}
+
+function goTo(id, idx) {
+  if (isTransitioning[id]) return;
+  isTransitioning[id] = true;
+
+  var slides = document.getElementById("slides-" + id);
+  if (!slides) return;
+  var currentCount = slides.children.length;
+
+  state[id] = idx;
+  slides.style.transition = "transform 0.5s ease";
+  slides.style.transform = "translateX(-" + idx * 100 + "%)";
+
+  var dots = document.querySelectorAll("#dots-" + id + " .dot");
+  if (dots.length > 0) {
+    var activeDotIdx = idx - 1;
+    if (idx >= currentCount - 1) activeDotIdx = 0;
+    if (idx <= 0) activeDotIdx = dots.length - 1;
+
+    for (var i = 0; i < dots.length; i++) {
+      dots[i].className = "dot" + (i === activeDotIdx ? " active" : "");
+    }
+  }
+}
+
+function moveCarousel(id, dir) {
+  if (isTransitioning[id]) return;
+  goTo(id, state[id] + dir);
+}
+
+// ГЛОВБАЛЬНАЯ ЛОГИКА: Переключение категорий портфолио верхнего уровня
+function switchGlobalCategory(categoryName) {
+  // 1. Меняем активный класс у навигационных кнопок
+  var buttons = document.querySelectorAll('.global-tab-btn');
+  buttons.forEach(function(btn) {
+    btn.classList.remove('active');
+  });
+  // Ищем кнопку по событию клика или тексту
+  event.target.classList.add('active');
+
+  // 2. Скрываем все категории и плавно проявляем выбранную
+  var categories = document.querySelectorAll('.global-category-section');
+  categories.forEach(function(cat) {
+    cat.classList.remove('active');
+    cat.style.display = 'none'; // Полностью убираем из потока, чтобы разгрузить рендер
+  });
+
+  var targetCat = document.getElementById('cat-' + categoryName);
+  if (targetCat) {
+    targetCat.style.display = 'block';
+    // Небольшой таймаут, чтобы transition в CSS успел сработать на opacity
+    setTimeout(function() {
+      targetCat.classList.add('active');
+      
+      // ПРИНУДИТЕЛЬНЫЙ РЕРАЙТ: заставляем A-Frame пересчитать размеры окна 3D сцены
+    const scenes = targetCat.querySelectorAll('a-scene');
+    scenes.forEach(function(scene) {
+      if (scene.resize) scene.resize(); 
+    });
+
+    window.dispatchEvent(new Event('scroll'));
+  }, 50);
+  }
+}
+
+// Инициализация всех стандартных под-каруселей при загрузке страницы
+document.addEventListener('DOMContentLoaded', function() {
+  initCarousel("1");
+  initCarousel("2");
+  initCarousel("3");
+  initCarousel("4");
+});
+    </script>
+    <script>
+      //увеличение
+    document.addEventListener("DOMContentLoaded", function() {
+  const modalRoot = document.getElementById("image-lightbox-modal-root");
+  const targetView = document.getElementById("image-lightbox-target-view");
+  const textCaption = document.getElementById("image-lightbox-text-caption");
+  const closeButton = document.querySelector(".image-lightbox-close-button");
+  const triggerImages = document.querySelectorAll(".image-lightbox-trigger");
+
+  if (!modalRoot || !targetView) return;
+
+  triggerImages.forEach(img => {
+    img.addEventListener("click", function(event) {
+      event.preventDefault();
+      
+      // Ищем тег <img> внутри элемента или используем сам элемент
+      const internalImg = event.currentTarget.querySelector("img");
+      const finalSrc = event.currentTarget.src || event.currentTarget.getAttribute("src") || (internalImg ? (internalImg.src || internalImg.getAttribute("src")) : "");
+      const finalAlt = event.currentTarget.alt || (internalImg ? internalImg.alt : "") || "";
+
+      // Открываем окно и подставляем данные
+      targetView.src = finalSrc;
+      if (textCaption) {
+        textCaption.textContent = finalAlt;
+      }
+      modalRoot.style.display = "block";
+    });
+  });
+
+  function closeLightbox() {
+    modalRoot.style.display = "none";
+    targetView.src = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7";
+    if (textCaption) textCaption.textContent = "";
+  }
+
+  if (closeButton) closeButton.addEventListener("click", closeLightbox);
+  
+  modalRoot.addEventListener("click", function(event) {
+    if (event.target === modalRoot) closeLightbox();
+  });
+
+  window.addEventListener("keydown", function(event) {
+    if (event.key === "Escape" && modalRoot.style.display === "block") {
+      closeLightbox();
+    }
+  });
+});
+    </script>
+<script>
+ // Extract media URL from query parameters if present
+ function getMediaUrlFromParams() {
+ const urlParams = new URLSearchParams(window.location.search);
+ const mediaUrl = urlParams.get('url') || urlParams.get('src');
+ const stereoParam = urlParams.get('stereo');
+ let stereoMode = 0; // Default: mono
+ if (stereoParam) {
+ const stereoLower = stereoParam.toLowerCase();
+ switch (stereoLower) {
+ case 'tb':
+ case 'vertical':
+ case '1':
+ stereoMode = 1;
+ break;
+ case 'lr':
+ case 'horizontal':
+ case '2':
+ stereoMode = 2;
+ break;
+ default:
+ stereoMode = 0; // mono
+ }
+ }
+ return {
+ url: mediaUrl,
+ stereoMode: stereoMode
+ };
+ }
+ document.addEventListener('DOMContentLoaded', () => {
+ /* ------------------ DOM references ------------------ */
+  const mockEl = document.createElement('div');
+ 
+ const elements = {
+ dropArea: document.getElementById('dropArea') || mockEl,
+ fileInput: document.getElementById('fileInput') || document.createElement('input'),
+ selectButton: document.getElementById('selectButton') || mockEl,
+ aframeContainer: document.getElementById('aframeContainer'),
+ controls: document.getElementById('controls') || mockEl,
+ resetButton: document.getElementById('resetButton') || mockEl,
+ stereoButton: document.getElementById('stereoButton') || mockEl,
+ videoControls: document.getElementById('videoControls') || mockEl,
+ playPauseButton: document.getElementById('playPauseButton') || mockEl,
+ videoSlider: document.getElementById('videoSlider') || document.createElement('input'),
+ loadingIndicator: document.getElementById('loadingIndicator') || mockEl,
+ zoomInfo: document.getElementById('zoomInfo') || mockEl,
+ screenshotButton: document.getElementById('screenshotButton') || mockEl,
+ screenshotFlash: document.getElementById('screenshotFlash') || mockEl,
+ screenshotFeedback: document.getElementById('screenshotFeedback') || mockEl,
+ globalDropOverlay: document.getElementById('globalDropOverlay') || mockEl,
+ container: document.getElementById('container')
+ };
+ /* ------------------ App state ------------------ */
+ const state = {
+ scene: null,
+ videoElement: null,
+ isPlaying: true,
+ currentFov: 80,
+ currentMedia: null,
+ isMediaImage: false,
+ stereoMode: 0,
+ isDraggingFile: false
+ };
+ /* ------------------ Helpers ------------------ */
+ const helpers = {
+ showLoading: (flag) => {
+ elements.loadingIndicator.style.display = flag ? 'flex' :
+'none';
+ },
+ updateFov: (delta) => {
+ state.currentFov = Math.min(179, Math.max(1, state.currentFov +
+delta));
+ const cam = document.querySelector('#mainCamera');
+ if (cam) cam.setAttribute('camera', 'fov', state.currentFov);
+ elements.zoomInfo.textContent = `Zoom: $
+{Math.round(state.currentFov)}°`;
+ elements.zoomInfo.style.background = 'rgba(66,133,244,0.7)';
+ setTimeout(() => elements.zoomInfo.style.background =
+'rgba(0,0,0,0.55)', 300);
+ },
+ updatePlayPauseIcon: () => {
+ elements.playPauseButton.innerHTML = state.isPlaying ?
+ '<span class="material-symbols-outlined">pause</span>' :
+ '<span class="material-symbols-outlined">play_arrow</span>';
+ },
+ preventDefaults: (e) => {
+ e.preventDefault();
+ e.stopPropagation();
+ },
+ updateStereoButton: () => {
+ if (state.stereoMode > 0) {
+ elements.stereoButton.classList.add('active');
+ } else {
+ elements.stereoButton.classList.remove('active');
+ }
+ },
+ updateSlider: () => {
+ if (!state.videoElement || !state.videoElement.duration) return;
+ const val = (state.videoElement.currentTime /
+state.videoElement.duration) * 100;
+ elements.videoSlider.value = val;
+ },
+ dist: (t) => {
+ return Math.hypot(t[0].clientX - t[1].clientX, t[0].clientY -
+t[1].clientY);
+ },
+ showGlobalDropOverlay: (show) => {
+ elements.globalDropOverlay.style.display = show ? 'flex' :
+'none';
+ }
+ };
+ /* ------------------ Media handling ------------------ */
+ const mediaHandlers = {
+ processFile: (file) => {
+ helpers.showLoading(true);
+ state.currentFov = 80;
+ elements.zoomInfo.textContent = 'Zoom: 80°';
+ elements.videoControls.style.display = 'none';
+ elements.stereoButton.style.display = 'none';
+ state.stereoMode = 0;
+ helpers.updateStereoButton();
+ const reader = new FileReader();
+ reader.onload = (e) => {
+ const url = e.target.result;
+ state.currentMedia = url;
+ state.isMediaImage = file.type.startsWith('image/');
+ state.isMediaImage ?
+mediaHandlers.createImagePanorama(url) : mediaHandlers.createVideoPanorama(url);
+ };
+ reader.readAsDataURL(file);
+ },
+ processStereoImage: (src, callback) => {
+ const img = new Image();
+ img.crossOrigin = "Anonymous";
+ img.onload = () => {
+ const canvas = document.createElement('canvas');
+ const ctx = canvas.getContext('2d');
+ if (state.stereoMode === 1) { // Vertical (top/bottom)
+ canvas.width = img.width;
+ canvas.height = img.height / 2;
+ ctx.drawImage(img, 0, 0, img.width, img.height / 2, 0,
+0, canvas.width, canvas.height);
+ } else if (state.stereoMode === 2) { // Horizontal
+(left/right)
+ canvas.width = img.width / 2;
+ canvas.height = img.height;
+ ctx.drawImage(img, 0, 0, img.width / 2, img.height, 0,
+0, canvas.width, canvas.height);
+ } else {
+ // Non-stereo, use full image
+ canvas.width = img.width;
+ canvas.height = img.height;
+ ctx.drawImage(img, 0, 0);
+ }
+ callback(canvas.toDataURL('image/jpeg', 0.95));
+ };
+ img.onerror = () => {
+ helpers.showLoading(false);
+ alert('Error loading image.');
+ };
+ img.src = src;
+ },
+ createImagePanorama: (src) => {
+ helpers.showLoading(true);
+ mediaHandlers.processStereoImage(src, (processedSrc) => {
+ interfaceHandlers.cleanupScene();
+ state.scene = document.createElement('a-scene');
+ state.scene.setAttribute('embedded','');
+ state.scene.setAttribute('xr-mode-ui','enabled: true');
+ const sky = document.createElement('a-sky');
+ sky.setAttribute('src', processedSrc);
+ sky.setAttribute('material', 'npot: true');
+ sky.setAttribute('rotation', '0 -90 0');
+ sky.setAttribute('geometry', 'segmentsHeight: 64;
+segmentsWidth: 128');
+ const camera = document.createElement('a-entity');
+ camera.setAttribute('camera', 'fov: 80');
+ camera.setAttribute('look-controls', 'reverseMouseDrag:
+true');
+ camera.setAttribute('wasd-controls', 'enabled: false');
+ camera.setAttribute('position', '0 1.6 0');
+ camera.setAttribute('id', 'mainCamera');
+ state.scene.appendChild(sky);
+ state.scene.appendChild(camera);
+ elements.aframeContainer.appendChild(state.scene);
+ sky.addEventListener('loaded', () =>
+helpers.showLoading(false));
+ sky.addEventListener('error', () => {
+ helpers.showLoading(false);
+ alert('Error loading panorama image.');
+ });
+ elements.dropArea.classList.add('hidden');
+ elements.controls.style.display = 'flex';
+ elements.zoomInfo.style.display = 'block';
+ elements.stereoButton.style.display = 'block';
+ elements.resetButton.style.display = 'block';
+ elements.screenshotButton.style.display = 'block';
+ });
+ },
+ createVideoPanorama: (src) => {
+ interfaceHandlers.cleanupScene();
+ state.scene = document.createElement('a-scene');
+ state.scene.setAttribute('embedded','');
+ state.scene.setAttribute('xr-mode-ui','enabled: true');
+ // Assets
+ const assets = document.createElement('a-assets');
+ state.scene.appendChild(assets);
+ state.videoElement = document.createElement('video');
+ state.videoElement.setAttribute('id', 'videoAsset');
+ state.videoElement.setAttribute('src', src);
+ state.videoElement.setAttribute('crossorigin', 'anonymous');
+ state.videoElement.setAttribute('playsinline', '');
+ state.videoElement.setAttribute('webkit-playsinline', '');
+ state.videoElement.setAttribute('preload', 'metadata');
+ state.videoElement.setAttribute('loop', '');
+ assets.appendChild(state.videoElement);
+ // Videosphere
+ const vidsphere = document.createElement('a-videosphere');
+ vidsphere.setAttribute('src', '#videoAsset');
+ vidsphere.setAttribute('rotation', '0 -90 0');
+ state.scene.appendChild(vidsphere);
+ // Camera
+ const camera = document.createElement('a-entity');
+ camera.setAttribute('camera', 'fov: 80');
+ camera.setAttribute('look-controls', 'reverseMouseDrag: true');
+ camera.setAttribute('wasd-controls', 'enabled: false');
+ camera.setAttribute('position', '0 1.6 0');
+ camera.setAttribute('id', 'mainCamera');
+ state.scene.appendChild(camera);
+ elements.aframeContainer.appendChild(state.scene);
+ // UI state
+ elements.dropArea.classList.add('hidden');
+ elements.controls.style.display = 'flex';
+ elements.videoControls.style.display = 'flex';
+ elements.zoomInfo.style.display = 'block';
+ elements.stereoButton.style.display = 'none'; // Hide stereo
+button for videos
+ elements.resetButton.style.display = 'block';
+ elements.screenshotButton.style.display = 'block';
+ state.isPlaying = true;
+ helpers.updatePlayPauseIcon();
+ // Event listeners
+ state.videoElement.addEventListener('loadedmetadata', () => {
+ helpers.showLoading(false);
+ elements.videoSlider.value = 0;
+ state.videoElement.play().catch(() => {}); // autoplay may
+require user gesture
+ });
+ state.videoElement.addEventListener('timeupdate',
+helpers.updateSlider);
+ },
+ // Load media from URL if provided
+ loadMediaFromUrl: (url, initialStereoMode = 0) => {
+ helpers.showLoading(true);
+ // Set the stereo mode before loading
+ state.stereoMode = initialStereoMode;
+ helpers.updateStereoButton();
+ // Determine if it's a video based on extension
+ const lowerUrl = url.toLowerCase();
+ const isVideo = ['.mp4', '.webm'].some(ext =>
+lowerUrl.endsWith(ext));
+ if (isVideo) {
+ // Handle video (stereo mode not supported for videos in
+current implementation)
+ state.currentMedia = url;
+ state.isMediaImage = false;
+ state.stereoMode = 0; // Reset stereo mode for videos
+ mediaHandlers.createVideoPanorama(url);
+ } else {
+ // Handle image with stereo support
+ const img = new Image();
+ img.crossOrigin = "Anonymous";
+ img.onload = () => {
+ state.currentMedia = url;
+ state.isMediaImage = true;
+ mediaHandlers.createImagePanorama(url);
+ };
+ img.onerror = () => {
+ helpers.showLoading(false);
+ alert('Unsupported media type or inaccessible URL');
+ };
+ img.src = url;
+ }
+ }
+ };
+ /* ------------------ Interface handlers ------------------ */
+ const interfaceHandlers = {
+ takeScreenshot: () => {
+ if (!state.scene) return;
+ // Temporarily hide UI elements
+ const elementsToHide = [
+ elements.zoomInfo,
+ elements.controls,
+ elements.stereoButton
+ ];
+ // Store original display states
+ const originalDisplays = elementsToHide.map(el =>
+el.style.display);
+ // Hide elements
+ elementsToHide.forEach(el => el.style.display = 'none');
+ // Let the render update (wait for next frame)
+ requestAnimationFrame(() => {
+ // Take screenshot of canvas
+ const canvas = document.querySelector('canvas');
+ if (!canvas) {
+ // Restore UI and return
+ elementsToHide.forEach((el, i) => el.style.display =
+originalDisplays[i]);
+ return;
+ }
+ // Create screenshot
+ const dataURL = canvas.toDataURL('image/png');
+ // Create download link
+ const downloadLink = document.createElement('a');
+ downloadLink.href = dataURL;
+ downloadLink.download = 'panorama-screenshot.png';
+ // Trigger download
+ document.body.appendChild(downloadLink);
+ downloadLink.click();
+ document.body.removeChild(downloadLink);
+ // Show flash effect
+ elements.screenshotFlash.style.opacity = '0.7';
+ setTimeout(() => {
+ elements.screenshotFlash.style.opacity = '0';
+ }, 100);
+ // Show feedback
+ elements.screenshotFeedback.style.opacity = '1';
+ setTimeout(() => {
+ elements.screenshotFeedback.style.opacity = '0';
+ }, 2000);
+ // Restore UI
+ setTimeout(() => {
+ elementsToHide.forEach((el, i) => el.style.display =
+originalDisplays[i]);
+ }, 300);
+ });
+ },
+ cleanupScene: () => {
+ if (state.scene) {
+ elements.aframeContainer.removeChild(state.scene);
+ state.scene = null;
+ }
+ if (state.videoElement) {
+ state.videoElement.pause();
+ state.videoElement = null;
+ }
+ elements.controls.style.display = 'none';
+ elements.videoControls.style.display = 'none';
+ elements.zoomInfo.style.display = 'none';
+ elements.stereoButton.style.display = 'none';
+ elements.resetButton.style.display = 'none';
+ elements.screenshotButton.style.display = 'none';
+ elements.dropArea.classList.remove('hidden');
+ elements.fileInput.value = '';
+ }
+ };
+ /* ------------------ Event Listeners ------------------ */
+ // File input and drop area
+ elements.selectButton.addEventListener('click', () =>
+elements.fileInput.click());
+ elements.fileInput.addEventListener('change', (e) => {
+ if (e.target.files.length)
+mediaHandlers.processFile(e.target.files[0]);
+ });
+ // Drag and drop events for initial drop area
+ ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(evt => {
+ elements.dropArea.addEventListener(evt, helpers.preventDefaults);
+ });
+ ['dragenter', 'dragover'].forEach(evt => {
+ elements.dropArea.addEventListener(evt, () => {
+ elements.dropArea.style.borderColor = '#4285f4';
+ elements.dropArea.style.background = '#e8f0fe';
+ });
+ });
+ ['dragleave', 'drop'].forEach(evt => {
+ elements.dropArea.addEventListener(evt, () => {
+ elements.dropArea.style.borderColor = '#ccc';
+ elements.dropArea.style.background = '#f5f5f5';
+ });
+ });
+ elements.dropArea.addEventListener('drop', (e) => {
+ const f = e.dataTransfer.files[0];
+ if (!f) return;
+ const valid = /^image\/|video\/(mp4|webm)/.test(f.type);
+ valid ? mediaHandlers.processFile(f) : alert('Please upload an image
+or MP4/WebM video file.');
+ });
+ // Global drag and drop events
+ document.addEventListener('dragenter', (e) => {
+ helpers.preventDefaults(e);
+ // Only show if there's already media loaded AND files are being
+dragged
+ if (state.scene && !state.isDraggingFile && e.dataTransfer &&
+e.dataTransfer.types.includes('Files')) {
+ state.isDraggingFile = true;
+ helpers.showGlobalDropOverlay(true);
+ }
+ });
+ document.addEventListener('dragover', (e) => {
+ helpers.preventDefaults(e);
+ // Keep the overlay visible while dragging files
+ if (state.isDraggingFile && e.dataTransfer &&
+e.dataTransfer.types.includes('Files')) {
+ helpers.showGlobalDropOverlay(true);
+ }
+ });
+ document.addEventListener('dragleave', (e) => {
+ helpers.preventDefaults(e);
+ // Check if leaving the viewport
+ if (e.clientX <= 0 || e.clientX >= window.innerWidth ||
+ e.clientY <= 0 || e.clientY >= window.innerHeight) {
+ state.isDraggingFile = false;
+ helpers.showGlobalDropOverlay(false);
+ }
+ });
+ document.addEventListener('drop', (e) => {
+ helpers.preventDefaults(e);
+ helpers.showGlobalDropOverlay(false);
+ state.isDraggingFile = false;
+ const f = e.dataTransfer.files[0];
+ if (!f) return;
+ const valid = /^image\/|video\/(mp4|webm)/.test(f.type);
+ valid ? mediaHandlers.processFile(f) : alert('Please upload an image
+or MP4/WebM video file.');
+ });
+ // Video controls
+ elements.videoSlider.addEventListener('input', () => {
+ if (!state.videoElement || !state.videoElement.duration) return;
+ const newTime = (elements.videoSlider.value / 100) *
+state.videoElement.duration;
+ state.videoElement.currentTime = newTime;
+ if (!state.isPlaying) {
+ // ensure texture updates while paused
+ state.videoElement.pause();
+ }
+ });
+ elements.playPauseButton.addEventListener('click', () => {
+ if (!state.videoElement) return;
+ state.isPlaying ? state.videoElement.pause() :
+state.videoElement.play().catch(() => {});
+ state.isPlaying = !state.isPlaying;
+ helpers.updatePlayPauseIcon();
+ });
+ // Screenshot functionality
+ elements.screenshotButton.addEventListener('click',
+interfaceHandlers.takeScreenshot);
+ // Reset button
+ elements.resetButton.addEventListener('click',
+interfaceHandlers.cleanupScene);
+ // Stereo toggle
+ elements.stereoButton.addEventListener('click', () => {
+ if (!state.currentMedia) return;
+ // Cycle through stereo modes: Off -> Vertical -> Horizontal -> Off
+ state.stereoMode = (state.stereoMode + 1) % 3;
+ helpers.updateStereoButton();
+ // Reload the panorama with the new stereo mode
+ if (state.isMediaImage) {
+ mediaHandlers.createImagePanorama(state.currentMedia);
+ }
+ });
+ // Zoom handlers
+ document.addEventListener('wheel', (e) => {
+ if (!state.scene) return;
+ helpers.updateFov(Math.sign(e.deltaY) * 2);
+ e.preventDefault();
+ }, { passive: false });
+ // Pinch-to-zoom on laptop track pads and mobile devices
+ let pinchStartDist = 0;
+ document.addEventListener('touchstart', (e) => {
+ if (e.touches.length === 2) pinchStartDist =
+helpers.dist(e.touches);
+ });
+ document.addEventListener('touchmove', (e) => {
+ if (e.touches.length === 2 && state.scene) {
+ const d = helpers.dist(e.touches);
+ if (Math.abs(d - pinchStartDist) > 5) {
+ helpers.updateFov((pinchStartDist - d) > 0 ? 1 : -1);
+ pinchStartDist = d;
+ }
+ e.preventDefault();
+ }
+ }, { passive: false });
+ // Remove default click & drag feature
+ document.addEventListener('dragstart', (e) => {
+ if (e.target.tagName === 'CANVAS' || e.target.closest('a-scene')) {
+ e.preventDefault();
+ return false;
+ }
+ });
+ // Check for URL parameter and load media if present
+ const mediaParams = getMediaUrlFromParams();
+if (mediaParams.url) {
+  mediaHandlers.loadMediaFromUrl(mediaParams.url, mediaParams.stereoMode);
+} else {
+  // ХАК: Если параметров в ссылке нет, принудительно запускаем вашу дефолтную сцену музея
+  // Это уберет серую плашку загрузчика и сразу отобразит 3D-сферу
+  mediaHandlers.loadMediaFromUrl('images/360/museum.jpg', 0);
+}
+   
+   
+   // Создаем глобальную функцию, доступную для HTML-кнопок
+  // Регистрируем безопасную функцию в глобальном пространстве window
+  window.globalLoad360 = function(url, title, description, clickedElement) {
+    // 1. Вызываем внутренний метод A-Frame (теперь он доступен и отработает без ошибок)
+    mediaHandlers.loadMediaFromUrl(url, 0);
+
+    // 2. Обновляем текстовые характеристики под плеером
+    const titleEl = document.getElementById('unity-360-title');
+    const descEl = document.getElementById('unity-360-desc');
+    if (titleEl) titleEl.textContent = title;
+    if (descEl) descEl.textContent = description;
+
+    // 3. Смена активного класса (подсветки) у превью-карточек
+    if (clickedElement) {
+      const gallery = clickedElement.closest('.thumbs-360-gallery');
+      if (gallery) {
+        gallery.querySelectorAll('.thumb-360').forEach(t => t.classList.remove('active'));
+        clickedElement.classList.add('active');
+      }
+    }
+  };
+
+  // Автозапуск стартовой панорамы при входе на сайт (если нет параметров в URL)
+  const mediaParams = getMediaUrlFromParams();
+  if (!mediaParams.url) {
+    mediaHandlers.loadMediaFromUrl('images/360/museum.jpg', 0);
+  }
+
+}); // Это оригинальное закрытие DOMContentLoaded, оставляем его на месте
+   
+   
+ });
+</script>
+
+  </body>
+</html>
