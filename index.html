@@ -451,7 +451,8 @@
       </td>
       <td><img style="width: 70%" src="photo.png" alt="Описание картинки" /></td>
     </tr>
-  </table>
+        </table>
+        <div style="background-color:#00000055; padding: 1vw; border-radius:0.5vw; text-align: center">Моя специализация — полный цикл создания 3D-контента: от идеи и моделирования в Blender до финальной сборки, настройки и оптимизации сцены внутри Unity. Понимаю ограничения движков, умею экономить ресурсы, веду диалог как с художниками, так и с программистами.</div>
       </section>
     </div> 
     <!-- ══════════════════════════════════════
@@ -462,8 +463,8 @@
   <button class="global-tab-btn active" onclick="switchGlobalCategory('characters')">Персонажи</button>
   <button class="global-tab-btn" onclick="switchGlobalCategory('blender-360')">360° Blender рендеры</button>
   <button class="global-tab-btn" onclick="switchGlobalCategory('unity-360')">360° Unity локации</button>
-  <button class="global-tab-btn" onclick="switchGlobalCategory('props')">Пропсы</button>
-  <button class="global-tab-btn" onclick="switchGlobalCategory('architecture')">Архитектура</button>
+  <button class="global-tab-btn" onclick="switchGlobalCategory('props')">Объекты</button>
+  <button class="global-tab-btn" onclick="switchGlobalCategory('video')">low poly unity проект</button>
 </div>
 
 <!-- Главный контейнер для всех категорий портфолио -->
@@ -650,11 +651,23 @@
   <!-- КАТЕГОРИЯ 2: 360° Blender рендеры -->
   <div id="cat-blender-360" class="global-category-section">
   <div class="thumbs-360-gallery">
-    <div class="thumb-360 active" onclick="window.globalLoad360('images/360/lis_ola.png', 'Музейная сцена', 'Baked lightmaps...', this)">
+    <div class="thumb-360 active" onclick="window.globalLoad360('images/360/lis_ola.png', 'Олий Мажлис - Парламент Узбекистана', 'render в cycle', this)">
       <img src="images/360/lis_ola.png" />
     </div>
-    <div class="thumb-360 active" onclick="window.globalLoad360('images/360/sovit_room.png', 'Музейная сцена', 'Baked lightmaps...', this)">
-      <img src="images/360/sovit_room.png" />
+    <div class="thumb-360 active" onclick="window.globalLoad360('images/360/solar_oven.jpg', 'Большая солнечная печь', 'render в cycle', this)">
+      <img src="images/360/solar_oven.jpg" />
+    </div>
+    <div class="thumb-360 active" onclick="window.globalLoad360('images/360/mary.jpg', 'Гос дума', 'render в cycle', this)">
+      <img src="images/360/mary.jpg" />
+    </div>
+    <div class="thumb-360 active" onclick="window.globalLoad360('images/360/factory.jpg', 'Завод красное сормово в Российской империи', 'render в cycle', this)">
+      <img src="images/360/factory.jpg" />
+    </div>
+    <div class="thumb-360 active" onclick="window.globalLoad360('images/360/factory_2.jpg', 'Завод красное сормово в СССР', 'render в cycle', this)">
+      <img src="images/360/factory_2.jpg" />
+    </div>
+    <div class="thumb-360 active" onclick="window.globalLoad360('images/360/factory_3.jpg', 'Современный завод', 'render в cycle', this)">
+      <img src="images/360/factory_3.jpg" />
     </div>
   </div>
 </div>
@@ -662,55 +675,41 @@
   <!-- КАТЕГОРИЯ 3: 360° Unity локации -->
   <div id="cat-unity-360" class="global-category-section">
   <div class="thumbs-360-gallery">
-    <div class="thumb-360" onclick="window.globalLoad360('images/360/lab_3.jpg', 'Школьный класс', 'Оптимизировано под мобильный WebGL...', this)">
+    <div class="thumb-360" onclick="window.globalLoad360('images/360/lab_3.jpg', 'Сцена для урока изучения растений', 'Оптимизировано под vr', this)">
       <img src="images/360/lab_3.jpg" />
     </div>
-    <div class="thumb-360" onclick="window.globalLoad360('images/360/lab_1.jpg', 'Школьный класс', 'Оптимизировано под мобильный WebGL...', this)">
+    <div class="thumb-360" onclick="window.globalLoad360('images/360/lab_1.jpg', 'Сцена для урока изучения доильных аппаратов', 'Оптимизировано под vr', this)">
       <img src="images/360/lab_1.jpg" />
     </div>
-    <div class="thumb-360" onclick="window.globalLoad360('images/360/lab_2.jpg', 'Школьный класс', 'Оптимизировано под мобильный WebGL...', this)">
+    <div class="thumb-360" onclick="window.globalLoad360('images/360/lab_2.jpg', 'Сцена - хаб для выбора урока', 'Оптимизировано под vr.', this)">
       <img src="images/360/lab_2.jpg" />
     </div>
-    <div class="thumb-360" onclick="window.globalLoad360('images/360/music_sceen.jpg', 'Школьный класс', 'Оптимизировано под мобильный WebGL...', this)">
+    <div class="thumb-360" onclick="window.globalLoad360('images/360/music_sceen.jpg', 'Сцена орперного зала для игры', 'Оптимизировано под vr', this)">
       <img src="images/360/music_sceen.jpg" />
     </div>
-    <div class="thumb-360" onclick="window.globalLoad360('images/360/room.jpg', 'Школьный класс', 'Оптимизировано под мобильный WebGL...', this)">
+    <div class="thumb-360" onclick="window.globalLoad360('images/360/room.jpg', 'Сцена советской квартиры Горького', 'Оптимизировано под vr', this)">
       <img src="images/360/room.jpg" />
     </div>
   </div>
 </div>
-
-  <!-- КАТЕГОРИЯ 4: Пропсы -->
-  <div id="cat-props" class="global-category-section">
-     <section class="resume-section trigger-at-bottom" style="position: relative; z-index: 1;">
-       
-       </section>
-    <section class="resume-section trigger-at-bottom" style="position: relative; z-index: 1;">
-       
-       </section>
-    <section class="resume-section trigger-at-bottom" style="position: relative; z-index: 1;">
-       
-       </section>
-    <section class="resume-section trigger-at-bottom" style="position: relative; z-index: 1;">
-       
-       </section>
+<script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.2.0/model-viewer.min.js"></script>
+  <!-- КАТЕГОРИЯ 4: 3d объекты -->
+ 
+  <div id="cat-props" class="global-category-section" style="display: flex;  justify-content: center; align-items: center;  height: 50vh">
+    <iframe title="Аналой" style="height:50vh; width:15vw" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/213eb2586b854f9e9038bedc82f32007/embed"> </iframe> 
+    <iframe title="Двигатель ГТД-1250" style="height:50vh; width:15vw" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/0af4ef03a20540bcbee35f9dca2644f3/embed"> </iframe>
+    <iframe title="робот для разминирования - Варан" style="height:50vh; width:15vw" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/b6847f736ff2493ea66a25679c9f88fd/embed"> </iframe>
+    <iframe title="Пак советских субмарин" style="height:50vh; width:15vw" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/7967e3e3f2b147e9a1a44625ecc48379/embed"> </iframe>
+    <iframe title="Храм рождества иоана предтечи" style="height:50vh; width:15vw" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/08aaadfb985243e39b446f8fc2506110/embed"> </iframe>
+    <iframe title="Рождественская церковь" style="height:50vh; width:15vw" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/7237895a968a4d959b120bed9eed6603/embed"> </iframe>
+    
   </div>
-
-  <!-- КАТЕГОРИЯ 5: Архитектура -->
-  <div id="cat-architecture" class="global-category-section">
-     <section class="resume-section trigger-at-bottom" style="position: relative; z-index: 1;">
-       
-       </section>
-    <section class="resume-section trigger-at-bottom" style="position: relative; z-index: 1;">
-       
-       </section>
-    <section class="resume-section trigger-at-bottom" style="position: relative; z-index: 1;">
-       
-       </section>
-    <section class="resume-section trigger-at-bottom" style="position: relative; z-index: 1;">
-       
-       </section>
+  <div id="cat-video" class="global-category-section" style="display: flex;  justify-content: center; align-items: center;  height: 50vh">
+    <video style="margin-left:35vw;" src="video/train.mp4" width="640" height="360" controls></video>
   </div>
+  
+
+
 
 </div>
     
@@ -719,7 +718,7 @@
        ФИКСИРОВАННАЯ ТАБЛИЦА (3 × 4)
        3 столбца, 4 строки (1 заголовок + 3 данных)
   ══════════════════════════════════════ -->
-    <div class="footer-table-wrap" style="background: linear-gradient(to bottom, #441111, #111111)">
+    <div class="footer-table-wrap" style="background: linear-gradient(to bottom, #441111, #111111);">
       <table style="width:20%">
         <thead>
           
@@ -1694,17 +1693,7 @@ window.globalLoad360 = function(url, title, description, clickedElement) {
  }
 };
  // Дублирующий вызов const mediaParams удален, так как он уже описан выше
-  
-   
-   
-
 </script>
 
-
-    
-
-     
-
-    
   </body>
 </html>
