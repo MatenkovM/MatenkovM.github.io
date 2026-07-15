@@ -464,7 +464,7 @@
   <button class="global-tab-btn" onclick="switchGlobalCategory('blender-360')">360° Blender рендеры</button>
   <button class="global-tab-btn" onclick="switchGlobalCategory('unity-360')">360° Unity локации</button>
   <button class="global-tab-btn" onclick="switchGlobalCategory('props')">Объекты</button>
-  <button class="global-tab-btn" onclick="switchGlobalCategory('video')">low poly unity проект</button>
+  <button class="global-tab-btn" onclick="switchGlobalCategory('video')">low poly unity примеры</button>
 </div>
 
 <!-- Главный контейнер для всех категорий портфолио -->
@@ -816,8 +816,80 @@
     <iframe title="Рождественская церковь" style="height:50vh; width:15vw" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/7237895a968a4d959b120bed9eed6603/embed"> </iframe>
     
   </div>
-  <div id="cat-video" class="global-category-section" style="display: flex;  justify-content: center; align-items: center;  height: 50vh">
-    <video style="margin-left:35vw;" src="video/train.mp4" width="640" height="360" controls></video>
+  
+  <div style="width: 50vw"><video src="video/train.mp4" style="width: 30vw; margin-left: 10vw" autoplay loop></video></div>
+              <div id="game-wrapper" style="width: 606px; height: 784px; background: #1a1a1a; margin-left: 56vw; margin-top: -32vh;border-radius: 8px; overflow: hidden;">
+  
+  <!-- Заглушка (Превью-экран), которая видна ДО загрузки игры -->
+  <div id="game-placeholder" style="position: relative; width: 606px; height: 784px; display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 10; background: linear-gradient(135f, #111, #222); transition: opacity 0.5s;">
+    <h2 style="color: #fff; font-family: sans-serif; margin-bottom: 20px;">3D Арканоид</h2>
+    <!-- Кнопка активации -->
+    <button id="start-game-btn" style="padding: 12px 30px; font-size: 18px; font-weight: bold; color: #fff; background: #ff4757; border: none; border-radius: 5px; cursor: pointer; transition: transform 0.2s;">
+      Запустить игру
+    </button>
+  </div>
+
+  <!-- Реальный контейнер Unity (изначально скрыт или пуст) -->
+  <div id="unity-container" style="position: relative; width: 606px; height: 784px;">
+    <canvas id="unity-canvas" width="960" height="600" style="width: 100%; height: 100%; display: none; background: #000;"></canvas>
+    <!-- Индикатор загрузки -->
+    <div id="unity-loading-bar" style="display: none; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white; font-family: sans-serif;">
+      Загрузка движка... <span id="loading-percentage">0%</span>
+    </div>
+  </div>
+</div>
+            
+    
+
+<script>
+  document.getElementById('start-game-btn').addEventListener('click', function() {
+    // 1. Прячем кнопку, показываем индикатор загрузки
+    document.getElementById('start-game-btn').style.display = 'none';
+    document.getElementById('unity-loading-bar').style.display = 'block';
+
+    // 2. Пути к вашему билду Unity (Проверьте имена файлов в вашей папке Build!)
+    // Измените "YourBuildName" на точное имя файлов из вашей папки Build
+    const buildUrl = "Build";
+    const loaderUrl = buildUrl + "/arkanoid.loader.js"; 
+    const config = {
+      dataUrl: buildUrl + "/arkanoid.data",
+      frameworkUrl: buildUrl + "/arkanoid.framework.js",
+      codeUrl: buildUrl + "/arkanoid.wasm",
+      streamingAssetsUrl: "StreamingAssets",
+      companyName: "DefaultCompany",
+      productName: "Arkanoid",
+      productVersion: "1.0",
+    };
+
+    const canvas = document.querySelector("#unity-canvas");
+    const loadingBar = document.querySelector("#unity-loading-bar");
+    const loadingPercentage = document.querySelector("#loading-percentage");
+    const placeholder = document.querySelector("#game-placeholder");
+
+    // 3. Динамически создаем тег <script> и загружаем loader.js в память браузера
+    const script = document.createElement("script");
+    script.src = loaderUrl;
+    script.onload = () => {
+      // Как только загрузчик Unity скачался, активируем canvas и запускаем инстанс
+      canvas.style.display = "block";
+
+      createUnityInstance(canvas, config, (progress) => {
+        // Обновляем проценты загрузки тяжелых ассетов (.data и .wasm)
+        loadingPercentage.textContent = Math.round(100 * progress) + "%";
+      }).then((unityInstance) => {
+        // Успешно загружено! Полностью удаляем заглушку и индикатор
+        loadingBar.style.display = "none";
+        placeholder.style.opacity = "0";
+        setTimeout(() => placeholder.style.display = "none", 500);
+      }).catch((message) => {
+        alert("Ошибка при запуске игры: " + message);
+      });
+    };
+
+    // Добавляем скрипт на страницу для запуска процесса
+    document.body.appendChild(script);
+  });
+</script>
   </div>
   
 
