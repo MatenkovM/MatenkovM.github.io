@@ -1904,7 +1904,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const hash = window.location.hash;
 
     // Проверяем, есть ли в URL хэш #Environment
-    if (hash === '#Environment') {
+    if (window.location.hash.includes('Environment')) {
       
       // Находим заголовки Technical Artist и меняем текст
       const titles = document.querySelectorAll('.resume-title');
