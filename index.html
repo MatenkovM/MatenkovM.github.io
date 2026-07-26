@@ -817,23 +817,22 @@
     
   </div>
    <div id="cat-video" style="display: none;" class="global-category-section" >
-  <div style="width: 50vw"><video src="video/train.mp4" style="width: 30vw; margin-left: 10vw" autoplay loop></video></div>
-              <div id="game-wrapper" style="width: 606px; height: 784px; background: #1a1a1a; margin-left: 56vw; margin-top: -32vh;border-radius: 8px; overflow: hidden;">
+              <div id="game-wrapper" style="margin-left: 20vw; background: #1a1a1a; border-radius: 8px; overflow: hidden;width: 1200px;">
   
   <!-- Заглушка (Превью-экран), которая видна ДО загрузки игры -->
-  <div id="game-placeholder" style="position: relative; width: 606px; height: 784px; display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 10; background: linear-gradient(135f, #111, #222); transition: opacity 0.5s;">
-    <h2 style="color: #fff; font-family: sans-serif; margin-bottom: 20px;">3D Арканоид</h2>
+  <div id="game-placeholder" style="position: relative; width: 1200px; height: 800px; display: flex; flex-direction: column; justify-content: center; z-index: 10; background: linear-gradient(135f, #111, #222); transition: opacity 0.5s;">
+    <h2 style="color: #fff; font-family: sans-serif; margin-bottom: 20px; text-align-last: center;">Панорама</h2>
     <!-- Кнопка активации -->
-    <button id="start-game-btn" style="padding: 12px 30px; font-size: 18px; font-weight: bold; color: #fff; background: #ff4757; border: none; border-radius: 5px; cursor: pointer; transition: transform 0.2s;">
+    <button id="start-game-btn" style="font-size: 18px; font-weight: bold; color: #fff; background: #ff4757; border: none; border-radius: 5px; cursor: pointer; transition: transform 0.2s;">
       Запустить игру
     </button>
   </div>
 
   <!-- Реальный контейнер Unity (изначально скрыт или пуст) -->
-  <div id="unity-container" style="position: relative; width: 606px; height: 784px;">
-    <canvas id="unity-canvas" width="960" height="600" style="width: 100%; height: 100%; display: none; background: #000;"></canvas>
+  <div id="unity-container" style="font-size: 18px; font-weight: bold; color: #fff; background: #ff4757; border: none; border-radius: 5px; cursor: pointer; transition: transform 0.2s;">
+    <canvas id="unity-canvas" width="1200" height="800" style="width: 100%; height: 100%; display: none; background: #000;"></canvas>
     <!-- Индикатор загрузки -->
-    <div id="unity-loading-bar" style="display: none; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white; font-family: sans-serif;">
+    <div id="unity-loading-bar" style="display: none; position: absolute; color: white; font-family: sans-serif;">
       Загрузка движка... <span id="loading-percentage">0%</span>
     </div>
   </div>
