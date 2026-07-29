@@ -1926,6 +1926,20 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       }
     }
+    if (hash.includes('Locations')) {
+ if (typeof switchGlobalCategory === 'function') {
+ // Автоматически открываем вкладку 360° Blender рендеры
+ switchGlobalCategory('blender-360'); 
+ 
+ // Делаем соответствующую кнопку активной визуально
+ const locButton = document.querySelector('.global-tab-btn[onclick*="blender-360"]');
+ if (locButton) {
+ document.querySelectorAll('.global-tab-btn').forEach(btn => btn.classList.remove('active'));
+ locButton.classList.add('active');
+ }
+ }
+ }
+ }
   }
 
   // 2. Запускаем проверку при загрузке страницы
