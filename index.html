@@ -1903,8 +1903,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const hash = window.location.hash;
 
     // Проверяем, есть ли в URL хэш #Environment
-    if (window.location.hash.includes('Environment')) {
-      
+    if (hash.includes('Environment')) {
       // Находим заголовки Technical Artist и меняем текст
       const titles = document.querySelectorAll('.resume-title');
       titles.forEach(title => {
@@ -1913,12 +1912,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       });
 
-      // Автоматически переключаем вкладку портфолио (например, на объекты или 360)
-      // Замените 'props' или 'blender-360' на ту категорию, которую хотите показать первой
+      // Автоматически переключаем вкладку портфолио
       if (typeof switchGlobalCategory === 'function') {
         switchGlobalCategory('blender-360'); 
-        
-        // Опционально: делаем кнопку этой вкладки активной визуально
+
+        // Делаем кнопку этой вкладки активной визуально (исправлена опечатка в классе)
         const envButton = document.querySelector('.global-tab-btn[onclick*="blender-360"]');
         if (envButton) {
           document.querySelectorAll('.global-tab-btn').forEach(btn => btn.classList.remove('active'));
@@ -1926,28 +1924,28 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       }
     }
+
+    // Проверяем хэш #Locations
     if (hash.includes('Locations')) {
- if (typeof switchGlobalCategory === 'function') {
- // Автоматически открываем вкладку 360° Blender рендеры
- switchGlobalCategory('blender-360'); 
- 
- // Делаем соответствующую кнопку активной визуально
- const locButton = document.querySelector('.global-tab-btn[onclick*="blender-360"]');
- if (locButton) {
- document.querySelectorAll('.global-tab-btn').forEach(btn => btn.classList.remove('active'));
- locButton.classList.add('active');
- }
- }
- }
- }
-  }
+      if (typeof switchGlobalCategory === 'function') {
+        switchGlobalCategory('blender-360'); 
+        
+        const locButton = document.querySelector('.global-tab-btn[onclick*="blender-360"]');
+        if (locButton) {
+          document.querySelectorAll('.global-tab-btn').forEach(btn => btn.classList.remove('active'));
+          locButton.classList.add('active');
+        }
+      }
+    }
+  } // Конец функции applyEnvironmentRoute
 
   // 2. Запускаем проверку при загрузке страницы
   applyEnvironmentRoute();
 
-  // 3. Следим за изменениями, если пользователь кликнет по ссылке с хэшем, уже находясь на странице
+  // 3. Следим за изменениями хэша без перезагрузки страницы
   window.addEventListener('hashchange', applyEnvironmentRoute);
 });
+
 </script>
 
   </body>
