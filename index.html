@@ -808,12 +808,12 @@
   <!-- КАТЕГОРИЯ 4: 3d объекты -->
  
   <div id="cat-props" class="global-category-section" style="display: none;  justify-content: center; align-items: center;  height: 50vh">
-    <iframe title="Аналой" style="height:50vh; width:15vw" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/213eb2586b854f9e9038bedc82f32007/embed"> </iframe> 
-    <iframe title="Двигатель ГТД-1250" style="height:50vh; width:15vw" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/0af4ef03a20540bcbee35f9dca2644f3/embed"> </iframe>
-    <iframe title="робот для разминирования - Варан" style="height:50vh; width:15vw" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/b6847f736ff2493ea66a25679c9f88fd/embed"> </iframe>
-    <iframe title="Пак советских субмарин" style="height:50vh; width:15vw" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/7967e3e3f2b147e9a1a44625ecc48379/embed"> </iframe>
-    <iframe title="Храм рождества иоана предтечи" style="height:50vh; width:15vw" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/08aaadfb985243e39b446f8fc2506110/embed"> </iframe>
-    <iframe title="Рождественская церковь" style="height:50vh; width:15vw" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/7237895a968a4d959b120bed9eed6603/embed"> </iframe>
+    <iframe title="Аналой" style="height:50vh; border: 0; width:15vw" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/213eb2586b854f9e9038bedc82f32007/embed"> </iframe> 
+    <iframe title="Двигатель ГТД-1250" style="height:50vh; border: 0; width:15vw" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/0af4ef03a20540bcbee35f9dca2644f3/embed"> </iframe>
+    <iframe title="робот для разминирования - Варан" style="height:50vh; border: 0; width:15vw" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/b6847f736ff2493ea66a25679c9f88fd/embed"> </iframe>
+    <iframe title="Пак советских субмарин" style="height:50vh; border: 0; width:15vw" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/7967e3e3f2b147e9a1a44625ecc48379/embed"> </iframe>
+    <iframe title="Храм рождества иоана предтечи" style="height:50vh; border: 0; width:15vw" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/08aaadfb985243e39b446f8fc2506110/embed"> </iframe>
+    <iframe title="Рождественская церковь" style="height:50vh; border: 0; width:15vw" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/7237895a968a4d959b120bed9eed6603/embed"> </iframe>
     
   </div>
    <div id="cat-video" style="display: none;" class="global-category-section" >
@@ -894,7 +894,7 @@
 
 
 
-</div>
+
     
     
     <!-- ══════════════════════════════════════
@@ -942,6 +942,57 @@
     <!-- ══════════════════════════════════════
        CAROUSEL LOGIC (pure JS, no libraries)
   ══════════════════════════════════════ -->
+  <script>
+document.addEventListener('DOMContentLoaded', () => {
+  // 1. Функция, которая проверяет хэш и меняет контент
+  function applyEnvironmentRoute() {
+    const hash = window.location.hash;
+
+    // Проверяем, есть ли в URL хэш #Environment
+    if (hash.includes('Environment')) {
+      // Находим заголовки Technical Artist и меняем текст
+      const titles = document.querySelectorAll('.resume-title');
+      titles.forEach(title => {
+        if (title.textContent.includes('Technical Artist')) {
+          title.textContent = 'Environment Artist / 3D Generalist.';
+        }
+      });
+
+      // Автоматически переключаем вкладку портфолио
+      if (typeof switchGlobalCategory === 'function') {
+        switchGlobalCategory('blender-360'); 
+
+        // Делаем кнопку этой вкладки активной визуально (исправлена опечатка в классе)
+        const envButton = document.querySelector('.global-tab-btn[onclick*="blender-360"]');
+        if (envButton) {
+          document.querySelectorAll('.global-tab-btn').forEach(btn => btn.classList.remove('active'));
+          envButton.classList.add('active');
+        }
+      }
+    }
+
+    // Проверяем хэш #Locations
+    if (hash.includes('Locations')) {
+      if (typeof switchGlobalCategory === 'function') {
+        switchGlobalCategory('blender-360'); 
+        
+        const locButton = document.querySelector('.global-tab-btn[onclick*="blender-360"]');
+        if (locButton) {
+          document.querySelectorAll('.global-tab-btn').forEach(btn => btn.classList.remove('active'));
+          locButton.classList.add('active');
+        }
+      }
+    }
+  } // Конец функции applyEnvironmentRoute
+
+  // 2. Запускаем проверку при загрузке страницы
+  applyEnvironmentRoute();
+
+  // 3. Следим за изменениями хэша без перезагрузки страницы
+  window.addEventListener('hashchange', applyEnvironmentRoute);
+});
+
+</script>
     <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -1896,57 +1947,7 @@ window.globalLoad360 = function(url, title, description, clickedElement) {
 };
  // Дублирующий вызов const mediaParams удален, так как он уже описан выше
 </script>
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-  // 1. Функция, которая проверяет хэш и меняет контент
-  function applyEnvironmentRoute() {
-    const hash = window.location.hash;
 
-    // Проверяем, есть ли в URL хэш #Environment
-    if (hash.includes('Environment')) {
-      // Находим заголовки Technical Artist и меняем текст
-      const titles = document.querySelectorAll('.resume-title');
-      titles.forEach(title => {
-        if (title.textContent.includes('Technical Artist')) {
-          title.textContent = 'Environment Artist / 3D Generalist.';
-        }
-      });
-
-      // Автоматически переключаем вкладку портфолио
-      if (typeof switchGlobalCategory === 'function') {
-        switchGlobalCategory('blender-360'); 
-
-        // Делаем кнопку этой вкладки активной визуально (исправлена опечатка в классе)
-        const envButton = document.querySelector('.global-tab-btn[onclick*="blender-360"]');
-        if (envButton) {
-          document.querySelectorAll('.global-tab-btn').forEach(btn => btn.classList.remove('active'));
-          envButton.classList.add('active');
-        }
-      }
-    }
-
-    // Проверяем хэш #Locations
-    if (hash.includes('Locations')) {
-      if (typeof switchGlobalCategory === 'function') {
-        switchGlobalCategory('blender-360'); 
-        
-        const locButton = document.querySelector('.global-tab-btn[onclick*="blender-360"]');
-        if (locButton) {
-          document.querySelectorAll('.global-tab-btn').forEach(btn => btn.classList.remove('active'));
-          locButton.classList.add('active');
-        }
-      }
-    }
-  } // Конец функции applyEnvironmentRoute
-
-  // 2. Запускаем проверку при загрузке страницы
-  applyEnvironmentRoute();
-
-  // 3. Следим за изменениями хэша без перезагрузки страницы
-  window.addEventListener('hashchange', applyEnvironmentRoute);
-});
-
-</script>
 
   </body>
 </html>
