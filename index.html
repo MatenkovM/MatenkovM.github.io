@@ -29,6 +29,98 @@
   display: block;
 }
       
+      #text_char {
+    position: fixed;
+    /* Изначально блок полностью спрятан за левый экран (сдвинут на свою ширину) */
+    left: -20vw; 
+    margin-top: -40vh;
+    width: 20vw;
+    cursor: pointer;
+    text-align-last: center;
+    background-image: linear-gradient(to right, #ff4c0099, #00000000);
+    /* Плавное изменение свойства left за 0.4 секунды */
+    transition: left 0.4s ease-in-out; 
+  }
+
+  /* Класс, который будет добавляться при открытии */
+  #text_char.active {
+    left: 0px;
+  }
+
+  /* Стили для кнопки-иконки */
+  #icon_char {
+    position: fixed;
+    /* Выносим иконку вправо, чтобы она торчала, когда основной блок спрятан */
+    left: 0px; 
+    display: block;
+    transform: rotate(90deg);
+    margin-top: 19vh;
+    background: #7d250099;
+    width: 21vw;
+    height: 3vh;
+    text-align-last: center;
+    border-top-right-radius: 10vw;
+    border-top-left-radius: 10vw;
+    padding: 0.5vh;
+    /* Плавно скрываем через opacity вместо display для красоты */
+    transition: opacity 0.2s ease, visibility 0.2s; 
+  }
+
+  /* Скрываем иконку, когда меню активно */
+  #text_char.active #icon_char {
+    opacity: 0;
+    left: 0px;
+    visibility: hidden;
+  }
+      
+      
+      
+      #text_blend360 {
+    position: fixed;
+    /* Изначально блок полностью спрятан за левый экран (сдвинут на свою ширину) */
+    left: -20vw; 
+    margin-top: -20vh;
+    width: 20vw;
+    height: 30vh;
+    cursor: pointer;
+    text-align-last: center;
+    background-image: linear-gradient(to right, #ff4c0099, #00000000);
+    /* Плавное изменение свойства left за 0.4 секунды */
+    transition: left 0.4s ease-in-out; 
+  }
+
+  /* Класс, который будет добавляться при открытии */
+  #text_blend360.active {
+    left: 0px;
+
+  }
+
+  /* Стили для кнопки-иконки */
+  #icon_blend360 {
+    position: fixed;
+    /* Выносим иконку вправо, чтобы она торчала, когда основной блок спрятан */
+    left: 0px; 
+    display: block;
+    transform: rotate(90deg);
+    margin-top: 13.5vh;
+    background: #7d250099;
+    width: 30vh;
+    height: 3vh;
+    text-align-last: center;
+    border-top-right-radius: 10vw;
+    border-top-left-radius: 10vw;
+    padding: 0.5vh;
+    /* Плавно скрываем через opacity вместо display для красоты */
+    transition: opacity 0.2s ease, visibility 0.2s; 
+  }
+
+  /* Скрываем иконку, когда меню активно */
+  #text_blend360.active #icon_blend360 {
+    opacity: 0;
+    left: 0px;
+    visibility: hidden;
+  }
+      
       
       
       .global-category-section {
@@ -607,6 +699,40 @@
   <!-- Контентная часть (вернули к исходному состоянию без лишних z-index внутри) -->
   <div class="resume-body" style="position: relative; z-index: 1;">
     <div class="resume-body" style="position: relative; z-index: 1;">
+      <div id="text_char"> 
+  <!-- Иконка теперь находится внутри, её позиция зависит от родителя -->
+  <div id="icon_char" style="left:-10vw">Персонажи</div> 
+  
+  Персонажи 
+  <div style="margin-top: 1vh; text-align-last: left; font-family: sans-serif; color: #bbb; padding: 10px;">
+    В рамках VR-проектов разрабатывались персонажи различных типов с полным циклом создания:
+    <div style="margin-top: 1vh;">• Моделирование в Blender.</div>
+    <div style="margin-top: 1vh;">• Текстурирование в Substance Painter и с применением генеративных нейросетей (Stable Diffusion, ComfyUI).</div>
+    <div style="margin-top: 1vh;">• Риггинг.</div>
+    <div style="margin-top: 1vh;">• Анимация.</div>
+    <div style="margin-top: 1vh;">• Интеграция в Unity URP/HDRP для гарнитур Pico 3/4 и музейных инсталляций.</div>
+    <div style="margin-top: 1vh;">• Оптимизация под мобильные VR-платформы с учётом полигональных бюджетов и производительности.</div>
+    <div style="margin-top: 1vh;">• Работа выполнялась в рамках серийного производства со сроками 2–4 недели на проект.</div>
+    <div style="margin-top: 1vh;">Использовались также нейросети для генерации референсов, а также локальные LLM (Jan) при написания пропсов и ТЗ.</div>
+  </div> 
+</div>
+      
+      <script>
+  const textChar = document.getElementById('text_char');
+  const iconChar = document.getElementById('icon_char');
+
+  // Клик по иконке: открываем панель
+  iconChar.addEventListener('click', (e) => {
+    e.stopPropagation(); // Останавливаем всплытие, чтобы не срабатывал клик по самому text_char
+    textChar.classList.add('active');
+  });
+
+  // Клик по самой панели: закрываем её
+  textChar.addEventListener('click', () => {
+    textChar.classList.remove('active');
+  });
+</script>
+      
     <!-- Блок карусели -->
     <div class="carousel-block" style="background: radial-gradient(#77222288, #32323200, #32323200);">
       <div class="carousel" id="carousel-1">
@@ -762,6 +888,38 @@
 
   <!-- КАТЕГОРИЯ 2: 360° Blender рендеры -->
   <div id="cat-blender-360" style="display: none;" class="global-category-section">
+    
+    <div id="text_blend360"> 
+  <!-- Иконка теперь находится внутри, её позиция зависит от родителя -->
+  <div id="icon_blend360" style="left:-7vw">Окружение в Blender</div> 
+  
+  Окружение в Blender 
+  <div style="margin-top: 1vh; text-align-last: left; font-family: sans-serif; color: #bbb; padding: 10px;">
+    Разработка детализированных сцены для визуализации исторических объектов.
+    <div style="margin-top: 1vh;">• Выполнил цифровую реконструкцию города 1:1 с анимацией исторического роста.</div>
+    <div style="margin-top: 1vh;">• Разработал купольную анимацию для презентации в планетарии.</div>
+    <div style="margin-top: 1vh;">• Адаптировал 2D-видео для проекции «рыбий глаз» в мобильном цифровом планетарии с использованием сферического зеркала.</div>
+    <div style="margin-top: 1vh;">• Рендеринг в Cycles и Eevee. Сцены оптимизированы для показа в 360° панорамах и VR.</div>
+  </div> 
+</div>
+      
+      <script>
+  const textblend360 = document.getElementById('text_blend360');
+  const iconblend360 = document.getElementById('icon_blend360');
+
+  // Клик по иконке: открываем панель
+  iconblend360.addEventListener('click', (e) => {
+    e.stopPropagation(); // Останавливаем всплытие, чтобы не срабатывал клик по самому text_char
+    textblend360.classList.add('active');
+  });
+
+  // Клик по самой панели: закрываем её
+  textblend360.addEventListener('click', () => {
+    textblend360.classList.remove('active');
+  });
+</script>
+    
+    
   <div class="thumbs-360-gallery">
     <div class="thumb-360 active" onclick="window.globalLoad360('images/360/lis_ola.png', 'Олий Мажлис - Парламент Узбекистана', 'render в cycle', this)">
       <img src="images/360/lis_ola.png" />
