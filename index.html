@@ -968,51 +968,65 @@
   ══════════════════════════════════════ -->
   <script>
 document.addEventListener('DOMContentLoaded', () => {
-  // 1. Функция, которая проверяет хэш и меняет контент
   function applyEnvironmentRoute() {
     const hash = window.location.hash;
+    let targetCategory = null;
 
-    // Проверяем, есть ли в URL хэш #Environment
+    // Вариант 1: Environment Artist
     if (hash.includes('Environment')) {
-      // Находим заголовки Technical Artist и меняем текст
       const titles = document.querySelectorAll('.resume-title');
       titles.forEach(title => {
         if (title.textContent.includes('Technical Artist')) {
           title.textContent = 'Environment Artist / 3D Generalist.';
         }
       });
-
-      // Автоматически переключаем вкладку портфолио
-      if (typeof switchGlobalCategory === 'function') {
-        switchGlobalCategory('blender-360'); 
-
-        // Делаем кнопку этой вкладки активной визуально (исправлена опечатка в классе)
-        const envButton = document.querySelector('.global-tab-btn[onclick*="blender-360"]');
-        if (envButton) {
-          document.querySelectorAll('.global-tab-btn').forEach(btn => btn.classList.remove('active'));
-          envButton.classList.add('active');
-        }
-      }
+      targetCategory = 'blender-360';
     }
 
-    // Проверяем хэш #Locations
+    // Вариант 2: Level Artist (Новый функционал)
+    if (hash.includes('LevelDesign') || hash.includes('LevelArtist')) {
+      const titles = document.querySelectorAll('.resume-title');
+      titles.forEach(title => {
+        if (title.textContent.includes('Technical Artist')) {
+          title.textContent = 'Level Artist / 3D Generalist.';
+        }
+      });
+      targetCategory = 'blender-360'; // Открывает тот же блок 360-рендеров
+    }
+
+    // Обычный сброс на вкладку по умолчанию, если хэш-параметры просто Locations
     if (hash.includes('Locations')) {
+      targetCategory = 'blender-360';
+    }
+
+    // Переключение самой категории и активация кнопки таба
+    if (targetCategory) {
+      // Принудительно скрываем дефолтную секцию персонажей
+      const defaultCharTab = document.getElementById('cat-characters');
+      if (defaultCharTab) {
+        defaultCharTab.classList.remove('active');
+        defaultCharTab.style.display = 'none';
+      }
+
       if (typeof switchGlobalCategory === 'function') {
-        switchGlobalCategory('blender-360'); 
+        const origEvent = window.event;
+        window.event = null; // Защита от ReferenceError: event is not defined
         
-        const locButton = document.querySelector('.global-tab-btn[onclick*="blender-360"]');
-        if (locButton) {
+        switchGlobalCategory(targetCategory);
+        
+        window.event = origEvent;
+
+        // Корректная визуальная подсветка кнопки
+        const targetButton = document.querySelector(`.global-tab-btn[onclick*="${targetCategory}"]`);
+        if (targetButton) {
           document.querySelectorAll('.global-tab-btn').forEach(btn => btn.classList.remove('active'));
-          locButton.classList.add('active');
+          targetButton.classList.add('active');
         }
       }
     }
-  } // Конец функции applyEnvironmentRoute
+  }
 
-  // 2. Запускаем проверку при загрузке страницы
   applyEnvironmentRoute();
-
-  // 3. Следим за изменениями хэша без перезагрузки страницы
   window.addEventListener('hashchange', applyEnvironmentRoute);
 });
 
