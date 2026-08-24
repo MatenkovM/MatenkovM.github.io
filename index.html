@@ -457,12 +457,12 @@
        РЕЗЮМЕ 1
   ══════════════════════════════════════ -->
     
-    <div class="global-carousel-nav">
-  <button class="global-tab-btn active" onclick="switchGlobalCategory('characters')">Персонажи</button>
-  <button class="global-tab-btn" onclick="switchGlobalCategory('blender-360')">360° Blender рендеры</button>
-  <button class="global-tab-btn" onclick="switchGlobalCategory('unity-360')">360° Unity локации</button>
-  <button class="global-tab-btn" onclick="switchGlobalCategory('props')">Объекты</button>
-  <button class="global-tab-btn" onclick="switchGlobalCategory('video')">unity пример</button>
+<div class="global-carousel-nav">
+ <button class="global-tab-btn active" data-cat="characters">Персонажи</button>
+ <button class="global-tab-btn" data-cat="blender-360">360° Blender рендеры</button>
+ <button class="global-tab-btn" data-cat="unity-360">360° Unity локации</button>
+ <button class="global-tab-btn" data-cat="props">Объекты</button>
+ <button class="global-tab-btn" data-cat="video">unity пример</button>
 </div>
 
 <!-- Главный контейнер для всех категорий портфолио -->
@@ -967,12 +967,27 @@
        CAROUSEL LOGIC (pure JS, no libraries)
   ══════════════════════════════════════ -->
   <script>
+/* ─── Единый изолированный блок навигации и маршрутизации ─────────── */
 document.addEventListener('DOMContentLoaded', () => {
+  
+  // 1. Обработка ручных кликов по вкладкам портфолио
+  const tabButtons = document.querySelectorAll('.global-tab-btn');
+  tabButtons.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      // Получаем имя категории из атрибута data-cat
+      const categoryName = btn.getAttribute('data-cat');
+      if (categoryName) {
+        switchGlobalCategory(categoryName, btn);
+      }
+    });
+  });
+
+  // 2. Функция автоматической маршрутизации по хэшу URL
   function applyEnvironmentRoute() {
     const hash = window.location.hash;
     let targetCategory = null;
 
-    // Вариант 1: Environment Artist
+    // Проверка #Environment
     if (hash.includes('Environment')) {
       const titles = document.querySelectorAll('.resume-title');
       titles.forEach(title => {
@@ -983,7 +998,7 @@ document.addEventListener('DOMContentLoaded', () => {
       targetCategory = 'blender-360';
     }
 
-    // Вариант 2: Level Artist (Новый функционал)
+    // Проверка #LevelDesign и #LevelArtist
     if (hash.includes('LevelDesign') || hash.includes('LevelArtist')) {
       const titles = document.querySelectorAll('.resume-title');
       titles.forEach(title => {
@@ -991,44 +1006,34 @@ document.addEventListener('DOMContentLoaded', () => {
           title.textContent = 'Level Artist / 3D Generalist.';
         }
       });
-      targetCategory = 'blender-360'; // Открывает тот же блок 360-рендеров
+      targetCategory = 'blender-360';
     }
 
-    // Обычный сброс на вкладку по умолчанию, если хэш-параметры просто Locations
+    // Проверка #Locations
     if (hash.includes('Locations')) {
       targetCategory = 'blender-360';
     }
 
-    // Переключение самой категории и активация кнопки таба
+    // Если хэш совпал, переключаем вкладку программно
     if (targetCategory) {
-      // Принудительно скрываем дефолтную секцию персонажей
+      // Скрываем дефолтных персонажей
       const defaultCharTab = document.getElementById('cat-characters');
       if (defaultCharTab) {
         defaultCharTab.classList.remove('active');
         defaultCharTab.style.display = 'none';
       }
 
-      if (typeof switchGlobalCategory === 'function') {
-        const origEvent = window.event;
-        window.event = null; // Защита от ReferenceError: event is not defined
-        
-        switchGlobalCategory(targetCategory);
-        
-        window.event = origEvent;
-
-        // Корректная визуальная подсветка кнопки
-        const targetButton = document.querySelector(`.global-tab-btn[onclick*="${targetCategory}"]`);
-        if (targetButton) {
-          document.querySelectorAll('.global-tab-btn').forEach(btn => btn.classList.remove('active'));
-          targetButton.classList.add('active');
-        }
-      }
+      // Находим кнопку, соответствующую этой категории, и вызываем переключение
+      const targetButton = document.querySelector(`.global-tab-btn[data-cat="${targetCategory}"]`);
+      switchGlobalCategory(targetCategory, targetButton);
     }
   }
 
+  // Запускаем проверку хэша при загрузке страницы и при его изменении
   applyEnvironmentRoute();
   window.addEventListener('hashchange', applyEnvironmentRoute);
 });
+
 
 </script>
     <script type="application/ld+json">
@@ -1323,59 +1328,57 @@ function moveCarousel(id, dir) {
 }
 
 // ГЛОВБАЛЬНАЯ ЛОГИКА: Переключение категорий портфолио верхнего уровня
-function switchGlobalCategory(categoryName) {
+// НАДЁЖНАЯ ФУНКЦИЯ: Переключение категорий портфолио без использования объекта event
+function switchGlobalCategory(categoryName, clickedBtn) {
  // 1. Меняем активный класс у навигационных кнопок
  var buttons = document.querySelectorAll('.global-tab-btn');
  buttons.forEach(function(btn) {
-  btn.classList.remove('active');
+   btn.classList.remove('active');
  });
- if (event && event.target) {
-  event.target.classList.add('active');
+ 
+ // Если кнопку передали, подсвечиваем её
+ if (clickedBtn) {
+   clickedBtn.classList.add('active');
  }
 
  // 2. Скрываем все категории
  var categories = document.querySelectorAll('.global-category-section');
  categories.forEach(function(cat) {
-  cat.classList.remove('active');
-  cat.style.display = 'none'; 
+   cat.classList.remove('active');
+   cat.style.display = 'none'; 
  });
-
+ 
  var targetCat = document.getElementById('cat-' + categoryName);
  var player360 = document.querySelector('.viewer-360-layout');
-
+ 
  if (targetCat) {
-  targetCat.style.display = 'block';
-  
-  // УПРАВЛЕНИЕ ВИДИМОСТЬЮ ПЛЕЕРА БЕЗ display: none
-  if (player360) {
-   if (categoryName === 'blender-360' || categoryName === 'unity-360') {
-    player360.classList.add('visible'); // Показываем плавно
-   } else {
-    player360.classList.remove('visible'); // Скрываем плавно
-   }
-  }
-
-  // Небольшой таймаут для плавности анимации opacity и перерасчета WebGL
-  setTimeout(function() {
-   targetCat.classList.add('active');
+   targetCat.style.display = 'block';
    
-   /* УДАЛЕНО: Вызовы scene.resize(), которые приводили к ошибке (reading 'xr') */
-   
-   // Оставляем только стандартное уведомление браузера об изменении размеров окна
-   window.dispatchEvent(new Event('resize'));
-   window.dispatchEvent(new Event('scroll'));
-
-   // Автозапуск первой панорамы в текущей активной вкладке
-   if (categoryName === 'blender-360' || categoryName === 'unity-360') {
-    const firstThumbInTab = targetCat.querySelector('.thumb-360');
-    if (firstThumbInTab) {
-     firstThumbInTab.click();
-    }
+   // Управление видимостью 360-плеера
+   if (player360) {
+     if (categoryName === 'blender-360' || categoryName === 'unity-360') {
+       player360.classList.add('visible');
+     } else {
+       player360.classList.remove('visible');
+     }
    }
-
-  }, 100);
+   
+   setTimeout(function() {
+     targetCat.classList.add('active');
+     window.dispatchEvent(new Event('resize'));
+     window.dispatchEvent(new Event('scroll'));
+     
+     // Автозапуск первой панорамы во вкладке
+     if (categoryName === 'blender-360' || categoryName === 'unity-360') {
+       const firstThumbInTab = targetCat.querySelector('.thumb-360');
+       if (firstThumbInTab) {
+         firstThumbInTab.click();
+       }
+     }
+   }, 100);
  }
 }
+
 
 // Инициализация всех стандартных под-каруселей при загрузке страницы
 document.addEventListener('DOMContentLoaded', function() {
