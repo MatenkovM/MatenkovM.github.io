@@ -2014,7 +2014,7 @@ window.globalLoad360 = function(url, title, description, clickedElement) {
       fetch(googleAppUrl, {
         method: 'POST',
         mode: 'no-cors', 
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'text/plain' },
         body: JSON.stringify(payload)
       });
 
