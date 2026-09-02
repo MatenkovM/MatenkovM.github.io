@@ -1989,6 +1989,40 @@ window.globalLoad360 = function(url, title, description, clickedElement) {
  // Дублирующий вызов const mediaParams удален, так как он уже описан выше
 </script>
 
+    <script>
+  (async function() {
+    
+    if (localStorage.getItem('is_admin') === 'true') {
+      console.log("Это владелец сайта. Лог не отправлен.");
+      return; 
+    }
+
+    try {
+      
+      const ipResponse = await fetch('https://ipify.org');
+      const ipData = await ipResponse.json();
+      
+      
+      const payload = {
+        ip: ipData.ip,
+        url: window.location.href 
+      };
+
+      
+      const googleAppUrl = 'https://script.google.com/macros/s/AKfycbyb5lZeMDyelEuwGMzoIrGl6PjgaEXyDlwWPHCS1ALZvHAc2h8biuz2ZLlAibyUU9aDRQ/exec';
+      
+      fetch(googleAppUrl, {
+        method: 'POST',
+        mode: 'no-cors', 
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+
+    } catch (error) {
+      console.error('Ошибка проверки:', error);
+    }
+  })();
+</script>
 
   </body>
 </html>
