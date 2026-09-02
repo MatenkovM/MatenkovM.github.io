@@ -2007,7 +2007,7 @@ window.globalLoad360 = function(url, title, description, clickedElement) {
 
       const ipResponse = await fetch('https://api.db-ip.com/v2/free/self', { signal: controller.signal });
       const ipData = await ipResponse.json();
-      userIp = ipData.ip;
+      userIp = ipData.ipAddress;
       
       clearTimeout(id);
     } catch (e) {
