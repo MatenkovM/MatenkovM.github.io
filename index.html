@@ -1989,7 +1989,7 @@ window.globalLoad360 = function(url, title, description, clickedElement) {
  // Дублирующий вызов const mediaParams удален, так как он уже описан выше
 </script>
 
-    <script>
+<script>
   (async function() {
     
     if (localStorage.getItem('is_admin') === 'true') {
@@ -1997,29 +1997,40 @@ window.globalLoad360 = function(url, title, description, clickedElement) {
       return; 
     }
 
+    let userIp = "Не определен";
+
+    
     try {
       
-      const ipResponse = await fetch('https://ipify.org');
-      const ipData = await ipResponse.json();
-      
-      
-      const payload = {
-        ip: ipData.ip,
-        url: window.location.href 
-      };
+      const controller = new AbortController();
+      const id = setTimeout(() => controller.abort(), 3000);
 
+      const ipResponse = await fetch('https://db-ip.com', { signal: controller.signal });
+      const ipData = await ipResponse.json();
+      userIp = ipData.ip;
       
-      const googleAppUrl = 'https://script.google.com/macros/s/AKfycbyb5lZeMDyelEuwGMzoIrGl6PjgaEXyDlwWPHCS1ALZvHAc2h8biuz2ZLlAibyUU9aDRQ/exec';
+      clearTimeout(id);
+    } catch (e) {
+
+      userIp = "Скрыт (Блокировщик/Инкогнито)";
+    }
+
+    const payload = {
+      ip: userIp,
+      url: window.location.href
+    };
+
+    try {
+      const googleAppUrl = 'https://script.google.com/macros/s/AKfycbyb5lZeMDyelEuwGMzoIrGl6PjgaEXyDlwWPHCS1ALZvHAc2h8biuz2ZLlAibyUU9aDRQ/exec'; 
       
       fetch(googleAppUrl, {
         method: 'POST',
         mode: 'no-cors', 
-        headers: { 'Content-Type': 'text/plain' },
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' }, 
         body: JSON.stringify(payload)
       });
-
     } catch (error) {
-      console.error('Ошибка проверки:', error);
+      console.error('Ошибка данных:', error);
     }
   })();
 </script>
