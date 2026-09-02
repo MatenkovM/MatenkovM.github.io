@@ -2005,7 +2005,7 @@ window.globalLoad360 = function(url, title, description, clickedElement) {
       const controller = new AbortController();
       const id = setTimeout(() => controller.abort(), 3000);
 
-      const ipResponse = await fetch('https://db-ip.com', { signal: controller.signal });
+      const ipResponse = await fetch('https://api.db-ip.com/v2/free/self', { signal: controller.signal });
       const ipData = await ipResponse.json();
       userIp = ipData.ip;
       
