@@ -764,7 +764,7 @@
       бесшовного текстурирования. <br>
       Все сцены моделируются по чертежам и/или фотореференсам, текстурируются в Substance Painter, рендерятся в Cycles. Результат - готовые интерактивные панорамы и VR-окружения, в этом разделе.</div>
   <div class="thumbs-360-gallery">
-    <div class="thumb-360 active" onclick="window.globalLoad360('images/360/lis_ola.png', 'Олий Мажлис - Парламент Узбекистана', 'render в cycle', this)">
+    <div class="thumb-360 active" onclick="window.globalLoad360('images/360/lis_ola.jpg', 'Олий Мажлис - Парламент Узбекистана', 'render в cycle', this)">
       <img src="images/360/lis_ola.png" />
     </div>
     <div class="thumb-360 active" onclick="window.globalLoad360('images/360/solar_oven.jpg', 'Большая солнечная печь', 'render в cycle', this)">
@@ -794,9 +794,7 @@
       В музейных инсталляциях работал с ПК, android, Pico 4 и сенсорными панелями на URP и HDRP. Так же вел интеграцию моделей в проприетарный движок, ограниченный OBJ форматом. <br>
 </div>
   <div class="thumbs-360-gallery">
-    <div class="thumb-360" onclick="window.globalLoad360('images/360/lab_3.jpg', 'Сцена для урока изучения растений', 'Оптимизировано под vr', this)">
-      <img src="images/360/lab_3.jpg" />
-    </div>
+    
     <div class="thumb-360" onclick="window.globalLoad360('images/360/lab_1.jpg', 'Сцена для урока изучения доильных аппаратов', 'Оптимизировано под vr', this)">
       <img src="images/360/lab_1.jpg" />
     </div>
@@ -808,6 +806,9 @@
     </div>
     <div class="thumb-360" onclick="window.globalLoad360('images/360/room.jpg', 'Сцена советской квартиры Горького', 'Оптимизировано под vr', this)">
       <img src="images/360/room.jpg" />
+    </div>
+    <div class="thumb-360" onclick="window.globalLoad360('images/360/lab_3.jpg', 'Сцена для урока изучения растений', 'Оптимизировано под vr', this)">
+      <img src="images/360/lab_3.jpg" />
     </div>
   </div>
 </div>
@@ -1991,17 +1992,24 @@ window.globalLoad360 = function(url, title, description, clickedElement) {
 
 <script>
   (async function() {
-    
     if (localStorage.getItem('is_admin') === 'true') {
       console.log("Это владелец сайта. Лог не отправлен.");
       return; 
     }
 
     let userIp = "Не определен";
-
     
+    // 1. Считываем разрешение экрана в формате "Ширина x Высота"
+    const screenWidth = window.screen.width;
+    const screenHeight = window.screen.height;
+    const devicePixelRatio = window.devicePixelRatio || 1;
+    
+    // Получаем реальное физическое разрешение (для мобильных и 4К с масштабированием)
+    const realWidth = Math.round(screenWidth * devicePixelRatio);
+    const realHeight = Math.round(screenHeight * devicePixelRatio);
+    const screenSizeString = `${screenWidth}x${screenHeight} (Физическое: ${realWidth}x${realHeight})`;
+
     try {
-      
       const controller = new AbortController();
       const id = setTimeout(() => controller.abort(), 3000);
 
@@ -2011,13 +2019,14 @@ window.globalLoad360 = function(url, title, description, clickedElement) {
       
       clearTimeout(id);
     } catch (e) {
-
       userIp = "Скрыт (Блокировщик/Инкогнито)";
     }
 
+    // 2. Добавляем разрешение в объект отправки
     const payload = {
       ip: userIp,
-      url: window.location.href
+      url: window.location.href,
+      screen: screenSizeString // отправляем данные об экране
     };
 
     try {
