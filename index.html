@@ -450,7 +450,7 @@
       <td><img style="width: 70%" src="photo.png" alt="Описание картинки" /></td>
     </tr>
         </table>
-        <div style="background-color:#00000055; padding: 1vw; border-radius:0.5vw; text-align: center">Моя специализация — полный цикл создания 3D-контента: от идеи и моделирования в Blender до финальной сборки, настройки и оптимизации сцены внутри Unity. Понимаю ограничения движков, умею экономить ресурсы, веду диалог как с художниками, так и с программистами.</div>
+        <div id="top_block" style="background-color:#00000055; padding: 1vw; border-radius:0.5vw; text-align: center">Моя специализация — полный цикл создания 3D-контента: от идеи и моделирования в Blender до финальной сборки, настройки и оптимизации сцены внутри Unity. Понимаю ограничения движков, умею экономить ресурсы, веду диалог как с художниками, так и с программистами.</div>
       </section>
     </div> 
     <!-- ══════════════════════════════════════
@@ -461,6 +461,7 @@
  <button class="global-tab-btn active" data-cat="characters">Персонажи</button>
  <button class="global-tab-btn" data-cat="blender-360">360° Blender рендеры</button>
  <button class="global-tab-btn" data-cat="unity-360">360° Unity локации</button>
+ <button class="global-tab-btn" id="tab-btn-print" data-cat="print" style="display:">Печать</button>
  <button class="global-tab-btn" data-cat="props">Объекты</button>
  <button class="global-tab-btn" data-cat="video">unity пример</button>
 </div>
@@ -765,7 +766,7 @@
       Все сцены моделируются по чертежам и/или фотореференсам, текстурируются в Substance Painter, рендерятся в Cycles. Результат - готовые интерактивные панорамы и VR-окружения, в этом разделе.</div>
   <div class="thumbs-360-gallery">
     <div class="thumb-360 active" onclick="window.globalLoad360('images/360/lis_ola.jpg', 'Олий Мажлис - Парламент Узбекистана', 'render в cycle', this)">
-      <img src="images/360/lis_ola.png" />
+      <img src="images/360/lis_ola.jpg" />
     </div>
     <div class="thumb-360 active" onclick="window.globalLoad360('images/360/solar_oven.jpg', 'Большая солнечная печь', 'render в cycle', this)">
       <img src="images/360/solar_oven.jpg" />
@@ -812,8 +813,52 @@
     </div>
   </div>
 </div>
+  
+  
 <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.2.0/model-viewer.min.js"></script>
   <!-- КАТЕГОРИЯ 4: 3d объекты -->
+  
+  <div id="cat-print" class="global-category-section" style="display: none;  justify-content: center; align-items: center;  height: 60vh">
+    <div class="resume-section" style="background-color:#00000055; padding: 1vw; border-radius:0.5vw; text-align: center">
+      
+      Cоздаю высокоточные 3D-модели для последующей 3D-печати. Оптимизирую сетку под физические стандарты, контролирую толщину стенок, создаю правильные сочленения деталей и подготавливаю файлы к слайсингу.
+      
+      
+      </div>
+       <section class="resume-section" style="position: relative; z-index: 1; border:none;">
+         <div class="resume-section" style="position: absolute; top: 150%; left: 30%; transform: translate(-50%, -50%); z-index: 0; pointer-events: none; width: 60%; height: auto; object-fit: contain; background-color:#00000055; padding: 1vw; border-radius:0.5vw; text-align: center">
+      
+      Реализовал для масштабных музейных проектов более 30 уникальных медалей  
+      
+      
+      </div>
+    <canvas class="output-canvas-render" width="420" height="420" style="position: absolute; top: 150%; left: 80%; transform: translate(-50%, -50%); z-index: 0; pointer-events: none; opacity: 0.35; width: 35%; height: auto; object-fit: contain;">
+    <video class="main-video-src" src="video/medals_an.mp4" autoplay loop muted playsinline style="display: none"></video>
+  <video class="mask-video-src" src="video/medals_mask.mp4" autoplay loop muted playsinline style="display: none"></video> 
+    </canvas>
+    </section>
+   <section class="resume-section" style="position:relative; z-index: 1; border:none; top:35vh; height: 30vh">
+    
+    <div class="resume-section" style="position: absolute; left: 30%; transform: translate(-50%, -50%); z-index: 0; pointer-events: none; width: 60%; height: auto; object-fit: contain; background-color:#00000055; padding: 1vw; border-radius:0.5vw; text-align: center">
+      Разрабатывал концепции и 3D-модели персонажей и объектов окружения, подготавливал комплексные миниатюры/диорамы с персонажами для последующей 3D печати 
+      </div>
+    
+    </section>
+    <div class="carousel-block" style="background: radial-gradient(#77222288, #32323200, #32323200); width:20vw;position: absolute; left: 55%;">
+          <div class="carousel" id="carousel-5">
+            <div class="carousel-slides" id="slides-5">
+              <div class="carousel-slide image-lightbox-trigger"><img style="width: 70%" src="\images\pr\fox.png" alt="" /></div>
+              <div class="carousel-slide image-lightbox-trigger"><img style="width: 70%" src="\images\pr\dana.png" alt="" /></div>
+              <div class="carousel-slide image-lightbox-trigger"><img style="width: 70%" src="\images\pr\harry.png" alt="" /></div>
+            </div>
+            <button class="carousel-btn prev" onclick="moveCarousel('5',-1)">&#8249;</button>
+            <button class="carousel-btn next" onclick="moveCarousel('5', 1)">&#8250;</button>
+          </div>
+        </div>
+    
+  </div>
+  
+  
  
   <div id="cat-props" class="global-category-section" style="display: none;  justify-content: center; align-items: center;  height: 50vh">
     <div class="resume-section" style="background-color:#00000055; padding: 1vw; border-radius:0.5vw; text-align: center">
@@ -968,72 +1013,104 @@
        CAROUSEL LOGIC (pure JS, no libraries)
   ══════════════════════════════════════ -->
   <script>
+
+/* ─── Единый изолированный блок навигации и маршрутизации ─────────── */
 /* ─── Единый изолированный блок навигации и маршрутизации ─────────── */
 document.addEventListener('DOMContentLoaded', () => {
-  
-  // 1. Обработка ручных кликов по вкладкам портфолио
-  const tabButtons = document.querySelectorAll('.global-tab-btn');
-  tabButtons.forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      // Получаем имя категории из атрибута data-cat
-      const categoryName = btn.getAttribute('data-cat');
-      if (categoryName) {
-        switchGlobalCategory(categoryName, btn);
-      }
-    });
-  });
+ 
+ // 1. Обработка ручных кликов по вкладкам портфолио
+ const tabButtons = document.querySelectorAll('.global-tab-btn');
+ tabButtons.forEach(btn => {
+   btn.addEventListener('click', (e) => {
+     const categoryName = btn.getAttribute('data-cat');
+     if (categoryName) {
+       switchGlobalCategory(categoryName, btn);
+     }
+   });
+ });
 
-  // 2. Функция автоматической маршрутизации по хэшу URL
-  function applyEnvironmentRoute() {
-    const hash = window.location.hash;
-    let targetCategory = null;
+ // 2. Функция автоматической маршрутизации по хэшу URL
+ function applyEnvironmentRoute() {
+   const hash = window.location.hash;
+   let targetCategory = null;
 
-    // Проверка #Environment
-    if (hash.includes('Environment')) {
-      const titles = document.querySelectorAll('.resume-title');
-      titles.forEach(title => {
-        if (title.textContent.includes('Technical Artist')) {
-          title.textContent = 'Environment Artist / 3D Generalist.';
-        }
-      });
-      targetCategory = 'blender-360';
-    }
+   // Ссылки на элементы управления видимостью кнопок
+   const btnUnity360 = document.querySelector('.global-tab-btn[data-cat="unity-360"]');
+   const btnVideo = document.querySelector('.global-tab-btn[data-cat="video"]');
+   const btnPrint = document.getElementById('tab-btn-print');
+   
+   // ─── НАХОДИМ БЛОК ПО ID ──────────────────────────────────────────
+   const specTextBlock = document.getElementById('top_block');
+   // ──────────────────────────────────────────────────────────────────
 
-    // Проверка #LevelDesign и #LevelArtist
-    if (hash.includes('LevelDesign') || hash.includes('LevelArtist')) {
-      const titles = document.querySelectorAll('.resume-title');
-      titles.forEach(title => {
-        if (title.textContent.includes('Technical Artist')) {
-          title.textContent = 'Level Artist / 3D Generalist.';
-        }
-      });
-      targetCategory = 'blender-360';
-    }
+   // Сброс видимости кнопок и текста в дефолтное состояние при каждой смене хэша
+   if (btnUnity360) btnUnity360.style.display = 'block';
+   if (btnVideo) btnVideo.style.display = 'block';
+   if (btnPrint) btnPrint.style.display = 'none';
+   if (specTextBlock) {
+     specTextBlock.innerHTML = "Моя специализация — полный цикл создания 3D-контента: от идеи и моделирования в Blender до финальной сборки, настройки и оптимизации сцены внутри Unity. Понимаю ограничения движков, умею экономить ресурсы, веду диалог как с художниками, так и с программистами.";
+   }
 
-    // Проверка #Locations
-    if (hash.includes('Locations')) {
-      targetCategory = 'blender-360';
-    }
+   // Проверка #Environment
+   if (hash.includes('Environment')) {
+     const titles = document.querySelectorAll('.resume-title');
+     titles.forEach(title => {
+       if (title.textContent.includes('Technical Artist')) {
+         title.textContent = 'Environment Artist / 3D Generalist.';
+       }
+     });
+     targetCategory = 'blender-360';
+   }
+   
+   // Проверка #LevelDesign и #LevelArtist
+   if (hash.includes('LevelDesign') || hash.includes('LevelArtist')) {
+     const titles = document.querySelectorAll('.resume-title');
+     titles.forEach(title => {
+       if (title.textContent.includes('Technical Artist')) {
+         title.textContent = 'Level Artist / 3D Generalist.';
+       }
+     });
+     targetCategory = 'blender-360';
+   }
+   
+   // Проверка #Locations
+   if (hash.includes('Locations')) {
+     targetCategory = 'blender-360';
+   }
 
-    // Если хэш совпал, переключаем вкладку программно
-    if (targetCategory) {
-      // Скрываем дефолтных персонажей
-      const defaultCharTab = document.getElementById('cat-characters');
-      if (defaultCharTab) {
-        defaultCharTab.classList.remove('active');
-        defaultCharTab.style.display = 'none';
-      }
+   // Проверка #print
+   if (hash.includes('print')) {
+     if (btnUnity360) btnUnity360.style.display = 'none';
+     if (btnVideo) btnVideo.style.display = 'none';
+     if (btnPrint) btnPrint.style.display = 'block';
 
-      // Находим кнопку, соответствующую этой категории, и вызываем переключение
-      const targetButton = document.querySelector(`.global-tab-btn[data-cat="${targetCategory}"]`);
-      switchGlobalCategory(targetCategory, targetButton);
-    }
-  }
+     // Заменяем текст в блоке #top_block на специфичный для 3D-печати
+     if (specTextBlock) {
+       specTextBlock.innerHTML = "Моя специализация — создание высокоточных 3D-моделей. Оптимизирую сетку под стандарты индустрии, в любой стилистике и для последующего использования в печати, анимации или разработке ПО.";
+     }
 
-  // Запускаем проверку хэша при загрузке страницы и при его изменении
-  applyEnvironmentRoute();
-  window.addEventListener('hashchange', applyEnvironmentRoute);
+     targetCategory = 'print';
+   }
+
+   // Если хэш совпал, переключаем вкладку программно
+   if (targetCategory) {
+     const defaultCharTab = document.getElementById('cat-characters');
+     if (defaultCharTab) {
+       defaultCharTab.classList.remove('active');
+       defaultCharTab.style.display = 'none';
+     }
+     
+     const targetButton = document.querySelector(`.global-tab-btn[data-cat="${targetCategory}"]`);
+     switchGlobalCategory(targetCategory, targetButton);
+   }
+ }
+
+ // Запускаем проверку хэша при загрузке страницы и при его изменении
+ applyEnvironmentRoute();
+ window.addEventListener('hashchange', applyEnvironmentRoute);
 });
+
+
 
 
 </script>
@@ -1044,7 +1121,6 @@ document.addEventListener('DOMContentLoaded', () => {
   "name": "Матенков Михаил",
   "jobTitle": "Technical Artist / 3D Generalist",
   "description": "5 лет коммерческого опыта в 3D-графике для VR/AR, игр и интерактивных инсталляций. Полный пайплайн: моделирование, текстуры, анимация, шейдеры, оптимизация. Владею Blender, Unity (URP/HDRP), Substance Painter. Работал с Pico, Android, AR Foundation.",
-  "url": "https://твой-сайт.ру",
   "email": "matenkov96@gmail.com",
   "sameAs": [
     "https://www.artstation.com/the_last_tarantul",
@@ -1054,7 +1130,7 @@ document.addEventListener('DOMContentLoaded', () => {
 }
 </script>
     
-    <script>
+    <script>  //Видео альфа
       // 1. Создаем ОДИН общий невидимый буфер в памяти для всех видео на странице
 const sharedBuffer = document.createElement('canvas');
 const sCtx = sharedBuffer.getContext('2d', { willReadFrequently: true });
@@ -1237,7 +1313,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.resume-section').forEach(section => initAlphaVideo(section));
 });
     </script>
-    <script>
+    <script>  //цикл анимации
       // State: current slide index per carousel id
 var state = {};
 // Флаг для защиты от спам-кликов во время анимации
@@ -1355,7 +1431,6 @@ function switchGlobalCategory(categoryName, clickedBtn) {
  if (targetCat) {
    targetCat.style.display = 'block';
    
-   // Управление видимостью 360-плеера
    if (player360) {
      if (categoryName === 'blender-360' || categoryName === 'unity-360') {
        player360.classList.add('visible');
@@ -1366,10 +1441,19 @@ function switchGlobalCategory(categoryName, clickedBtn) {
    
    setTimeout(function() {
      targetCat.classList.add('active');
-     window.dispatchEvent(new Event('resize'));
-     window.dispatchEvent(new Event('scroll'));
      
-     // Автозапуск первой панорамы во вкладке
+     // ─── ДОБАВЬТЕ ЭТОТ БЛОК КОДА ──────────────────────────────────────
+     // Находим все секции внутри открывшейся вкладки и инициализируем в них видео
+     targetCat.querySelectorAll('.resume-section').forEach(section => {
+       if (typeof initAlphaVideo === 'function') {
+         initAlphaVideo(section);
+       }
+     });
+     // ──────────────────────────────────────────────────────────────────
+
+     window.dispatchEvent(new Event('resize'));
+     window.dispatchEvent(new Event('scroll')); // Имитируем скролл, чтобы активировать IntersectionObserver
+     
      if (categoryName === 'blender-360' || categoryName === 'unity-360') {
        const firstThumbInTab = targetCat.querySelector('.thumb-360');
        if (firstThumbInTab) {
@@ -1387,9 +1471,10 @@ document.addEventListener('DOMContentLoaded', function() {
   initCarousel("2");
   initCarousel("3");
   initCarousel("4");
+  initCarousel("5");
 });
     </script>
-    <script>
+    <script>  //карусель
       //увеличение
     document.addEventListener("DOMContentLoaded", function() {
   const modalRoot = document.getElementById("image-lightbox-modal-root");
