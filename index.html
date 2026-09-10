@@ -1050,14 +1050,7 @@ document.addEventListener('DOMContentLoaded', () => {
    if (specTextBlock) {
      specTextBlock.innerHTML = "Моя специализация — полный цикл создания 3D-контента: от идеи и моделирования в Blender до финальной сборки, настройки и оптимизации сцены внутри Unity. Понимаю ограничения движков, умею экономить ресурсы, веду диалог как с художниками, так и с программистами.";
    }
-   //тест сброса проверки
-      titles.forEach(title => {
-     if (title.textContent.includes('Environment Artist') || 
-         title.textContent.includes('Level Artist') || 
-         title.textContent.includes('3D Художник')) {
-       title.textContent = 'Technical Artist / 3D Generalist.';
-     }
-   });
+
 
    // Проверка #Environment
    if (hash.includes('Environment')) {
