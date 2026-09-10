@@ -1088,6 +1088,11 @@ document.addEventListener('DOMContentLoaded', () => {
      if (specTextBlock) {
        specTextBlock.innerHTML = "Моя специализация — создание высокоточных 3D-моделей. Оптимизирую сетку под стандарты индустрии, в любой стилистике и для последующего использования в печати, анимации или разработке ПО.";
      }
+     titles.forEach(title => {
+       if (title.textContent.includes('Technical Artist')) {
+         title.textContent = '3D Художник.';
+       }
+     });
 
      targetCategory = 'print';
    }
