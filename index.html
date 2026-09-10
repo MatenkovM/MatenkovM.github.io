@@ -1030,7 +1030,7 @@ document.addEventListener('DOMContentLoaded', () => {
  });
 
  // 2. Функция автоматической маршрутизации по хэшу URL
- function applyEnvironmentRoute() {
+function applyEnvironmentRoute() {
    const hash = window.location.hash;
    let targetCategory = null;
 
@@ -1039,22 +1039,31 @@ document.addEventListener('DOMContentLoaded', () => {
    const btnVideo = document.querySelector('.global-tab-btn[data-cat="video"]');
    const btnPrint = document.getElementById('tab-btn-print');
    
-   // ─── НАХОДИМ БЛОК ПО ID ──────────────────────────────────────────
+   // Ссылка на блок с текстом специализации (первый блок под заголовками)
    const specTextBlock = document.getElementById('top_block');
-   // ──────────────────────────────────────────────────────────────────
 
-   // Сброс видимости кнопок и текста в дефолтное состояние при каждой смене хэша
+   // Ссылки на заголовки резюме для смены названия профессии
+   const titles = document.querySelectorAll('.resume-title');
+
+   // Сброс видимости кнопок, текста специализации и профессии в дефолтное состояние при каждой смене хэша
    if (btnUnity360) btnUnity360.style.display = 'block';
    if (btnVideo) btnVideo.style.display = 'block';
    if (btnPrint) btnPrint.style.display = 'none';
    if (specTextBlock) {
      specTextBlock.innerHTML = "Моя специализация — полный цикл создания 3D-контента: от идеи и моделирования в Blender до финальной сборки, настройки и оптимизации сцены внутри Unity. Понимаю ограничения движков, умею экономить ресурсы, веду диалог как с художниками, так и с программистами.";
    }
-
+   
+   // Возвращаем дефолтную профессию перед проверкой хэшей
+   titles.forEach(title => {
+     if (title.textContent.includes('Environment Artist') || 
+         title.textContent.includes('Level Artist') || 
+         title.textContent.includes('3D Художник')) {
+       title.textContent = 'Technical Artist / 3D Generalist.';
+     }
+   });
 
    // Проверка #Environment
    if (hash.includes('Environment')) {
-     const titles = document.querySelectorAll('.resume-title');
      titles.forEach(title => {
        if (title.textContent.includes('Technical Artist')) {
          title.textContent = 'Environment Artist / 3D Generalist.';
@@ -1065,7 +1074,6 @@ document.addEventListener('DOMContentLoaded', () => {
    
    // Проверка #LevelDesign и #LevelArtist
    if (hash.includes('LevelDesign') || hash.includes('LevelArtist')) {
-     const titles = document.querySelectorAll('.resume-title');
      titles.forEach(title => {
        if (title.textContent.includes('Technical Artist')) {
          title.textContent = 'Level Artist / 3D Generalist.';
@@ -1079,17 +1087,19 @@ document.addEventListener('DOMContentLoaded', () => {
      targetCategory = 'blender-360';
    }
 
-   // Проверка #print
+   // ─── ОБНОВЛЕННАЯ ЛОГИКА ДЛЯ #print ─────────────────────────────────
    if (hash.includes('print')) {
      if (btnUnity360) btnUnity360.style.display = 'none';
      if (btnVideo) btnVideo.style.display = 'none';
      if (btnPrint) btnPrint.style.display = 'block';
 
-     // Заменяем текст в блоке #top_block на специфичный для 3D-печати
+     // 1. Заменяем текст в блоке #top_block на специфичный для 3D-печати
      if (specTextBlock) {
        specTextBlock.innerHTML = "Моя специализация — создание высокоточных 3D-моделей. Оптимизирую сетку под стандарты индустрии, в любой стилистике и для последующего использования в печати, анимации или разработке ПО.";
      }
-      titles.forEach(title => {
+
+     // 2. Меняем профессию на "3D Художник"
+     titles.forEach(title => {
        if (title.textContent.includes('Technical Artist')) {
          title.textContent = '3D Художник.';
        }
@@ -1097,6 +1107,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
      targetCategory = 'print';
    }
+   // ──────────────────────────────────────────────────────────────────
 
    // Если хэш совпал, переключаем вкладку программно
    if (targetCategory) {
